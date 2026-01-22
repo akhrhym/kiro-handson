@@ -870,10 +870,23 @@ $ cd todo-app</code>
             <h4>自動生成されるファイルを確認</h4>
 
             <div class="alert alert-tip">
-              <span class="alert-icon">�</span>
+              <span class="alert-icon">💡</span>
               <div>
-                生成が完了すると、左サイドバーの「SPECS」セクションに新しいフォルダが作成されます。
-                各ファイルをクリックして内容を確認し、右下の<strong>「Approve」</strong>ボタンで承認してください。
+                <strong>ファイルの確認手順：</strong><br>
+                1. 左サイドバーの「SPECS」セクションを確認<br>
+                2. 「todo-app」フォルダが新しく作成されているのを確認<br>
+                3. フォルダを展開すると3つのファイルが表示される<br>
+                4. 各ファイルをクリックして内容を確認<br>
+                5. ファイル右下（エディタ下部）の青い<strong>「Approve」</strong>ボタンをクリック
+              </div>
+            </div>
+
+            <div class="alert alert-info">
+              <span class="alert-icon">📍</span>
+              <div>
+                <strong>Approveボタンの場所：</strong><br>
+                各ファイルを開くと、エディタの右下角（スクロールバーの下）に青色の「Approve」ボタンが表示されます。
+                見つからない場合は、ファイル内容を下までスクロールしてください。
               </div>
             </div>
 
@@ -902,13 +915,13 @@ $ cd todo-app</code>
             </div>
 
             <div class="alert alert-warning">
-              <span class="alert-icon">⚠️</span>
+              <span class="alert-icon">📝</span>
               <div>
                 <strong>生成されたファイルの例：</strong><br>
                 • requirements.mdには「タスクの追加・削除・完了切り替え」などの機能要件<br>
                 • design.mdにはReactコンポーネントの設計とデータフロー<br>
                 • tasks.mdには「1. プロジェクト初期化」「2. 型定義作成」などの実装手順<br>
-                内容に問題がなければ各ファイルで「Approve」をクリックしてください。
+                <strong>重要：</strong>3つすべてのファイルでApproveが必要です！
               </div>
             </div>
           </div>
@@ -962,9 +975,6 @@ src/
 - anyの使用禁止
 - classコンポーネント禁止</code>
             </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       <!-- Step 4 -->
@@ -976,30 +986,45 @@ src/
           <div class="step-content">
             <h4>タスクリストを開いて実行</h4>
             
+            <div class="alert alert-tip">
+              <span class="alert-icon">🎯</span>
+              <div>
+                <strong>推奨：方法2（Chat実行）</strong><br>
+                初心者の方には、Chatでの一括実行をお勧めします。Kiroが自動で全タスクを順番に実行し、進捗も分かりやすく表示されます。
+              </div>
+            </div>
+            
             <div class="alert alert-info">
               <span class="alert-icon">📋</span>
               <div>
-                <strong>実装方法は2つあります：</strong><br>
-                <strong>方法1：</strong> 生成された <code>tasks.md</code> を開き、各タスクの横にある<strong>「Start task」</strong>ボタンをクリック<br>
-                <strong>方法2：</strong> Chatで以下のプロンプトを入力して一括実行
+                <strong>実装方法の比較：</strong><br>
+                <strong>方法1（個別実行）：</strong> 各タスクを個別に確認しながら進めたい場合<br>
+                　利点：細かい制御が可能　欠点：手間がかかる<br>
+                <strong>方法2（一括実行）：</strong> 効率的に全体を完成させたい場合<br>
+                　利点：自動化されて簡単　欠点：途中での調整が難しい
               </div>
             </div>
 
+            <h3>🚀 方法2：Chat一括実行（推奨）</h3>
             <div class="prompt-box">
               <h5>📝 Chatに入力するプロンプト</h5>
               <pre>tasks.mdの最初のタスクから順番に実行してください。
 各タスクが完了したら次のタスクに進み、
-すべてのタスクが完了するまで継続してください。</pre>
+すべてのタスクが完了するまで継続してください。
+進捗状況も教えてください。</pre>
             </div>
 
-            <div class="alert alert-tip">
-              <span class="alert-icon">💡</span>
+            <h3>⚙️ 方法1：個別実行</h3>
+            <p>生成された <code>tasks.md</code> を開き、各タスクの横にある<strong>「Start task」</strong>ボタンを順番にクリック</p>
+
+            <div class="alert alert-warning">
+              <span class="alert-icon">⏱️</span>
               <div>
-                <strong>実行の流れ：</strong><br>
-                1. Kiroが各タスクの内容を分析<br>
-                2. 必要なファイルを自動生成・編集<br>
-                3. タスクの完了を確認して次へ進行<br>
-                4. 全タスク完了後、動作確認を実施
+                <strong>完了の判断基準：</strong><br>
+                • Kiroが「タスクが完了しました」とメッセージを表示<br>
+                • 対象ファイルが生成・更新されている<br>
+                • エラーメッセージが表示されていない<br>
+                • 次のタスクに自動で進む（方法2の場合）
               </div>
             </div>
           </div>
@@ -1024,7 +1049,6 @@ src/
 
             <h3>型定義（src/types/todo.ts）</h3>
             <div class="code-block" data-lang="typescript">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
               <code>export interface Todo {
   id: string;
   text: string;
@@ -1035,7 +1059,6 @@ src/
 
             <h3>カスタムフック（src/hooks/useTodos.ts）</h3>
             <div class="code-block" data-lang="typescript">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
               <code>import { useState, useEffect } from 'react';
 import { Todo } from '../types/todo';
 
@@ -1075,7 +1098,6 @@ export const useTodos = () => {
 
             <h3>メインコンポーネント（src/App.tsx）</h3>
             <div class="code-block" data-lang="typescript">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
               <code>import { useState } from 'react';
 import { useTodos } from './hooks/useTodos';
 import './App.css';
@@ -1133,7 +1155,6 @@ export default App;</code>
 
             <h3>スタイル（src/App.css）</h3>
             <div class="code-block" data-lang="css">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
               <code>.app {
   max-width: 500px;
   margin: 40px auto;
@@ -1335,11 +1356,7 @@ h1 {
             </div>
 
             <p>
-              ブラウザで
-              <a href="http://localhost:5173" target="_blank"
-                ><code>http://localhost:5173</code></a
-              >
-              を開いて動作確認
+              ブラウザでターミナルに表示されるURL（通常は<code>http://localhost:5173</code>）を開いて動作確認
             </p>
           </div>
         </div>
@@ -1571,6 +1588,13 @@ $ npm install</code>
 
         <div class="challenge-card">
           <h4>⭐ Level 1: 基本機能の拡張</h4>
+          <div class="alert alert-info" style="margin-bottom: 12px;">
+            <span class="alert-icon">⏱️</span>
+            <div>
+              <strong>推定所要時間：</strong> 15〜30分<br>
+              <strong>必要な前提知識：</strong> React基本、JavaScript基本
+            </div>
+          </div>
           <ul>
             <li>タスクの編集機能を追加</li>
             <li>タスクの優先度（高・中・低）を設定できるようにする</li>
@@ -1579,12 +1603,21 @@ $ npm install</code>
 
           <div class="prompt-box" style="margin-top: 16px">
             <h5>📝 Chatに入力するプロンプト例</h5>
-            <pre>タスクをダブルクリックで編集できる機能を追加してください</pre>
+            <pre>タスクをダブルクリックで編集できる機能を追加してください。
+編集モードでは入力フィールドが表示され、
+Enterキーで保存、Escapeキーでキャンセルできるようにしてください。</pre>
           </div>
         </div>
 
         <div class="challenge-card">
           <h4>⭐⭐ Level 2: フィルタリングとソート</h4>
+          <div class="alert alert-info" style="margin-bottom: 12px;">
+            <span class="alert-icon">⏱️</span>
+            <div>
+              <strong>推定所要時間：</strong> 30〜45分<br>
+              <strong>必要な前提知識：</strong> React Hooks、配列操作、URL操作
+            </div>
+          </div>
           <ul>
             <li>「すべて」「未完了」「完了済み」のフィルタータブを追加</li>
             <li>作成日時でソートする機能</li>
@@ -1593,36 +1626,46 @@ $ npm install</code>
 
           <div class="prompt-box" style="margin-top: 16px">
             <h5>📝 Specsに追加するプロンプト例</h5>
-            <pre>
-フィルタリング機能を追加したい：
+            <pre>フィルタリング機能を追加したい：
 - タブで「すべて」「未完了」「完了済み」を切り替え
 - 現在のフィルター状態をURLパラメータで管理
-- フィルター切り替え時のアニメーション</pre
-            >
+- フィルター切り替え時のアニメーション
+- 検索ボックスでタスク名の部分一致検索</pre>
           </div>
         </div>
 
         <div class="challenge-card">
           <h4>⭐⭐⭐ Level 3: 高度な機能</h4>
+          <div class="alert alert-info" style="margin-bottom: 12px;">
+            <span class="alert-icon">⏱️</span>
+            <div>
+              <strong>推定所要時間：</strong> 60〜90分<br>
+              <strong>必要な前提知識：</strong> ドラッグ&ドロップAPI、日付操作、CSS詳細、PWA基本
+            </div>
+          </div>
           <ul>
             <li>ドラッグ&ドロップで並び替え</li>
             <li>カテゴリー（タグ）機能の追加</li>
             <li>期限日の設定と通知</li>
             <li>ダークモードの実装</li>
+            <li>PWA対応（オフライン機能）</li>
           </ul>
 
           <div class="prompt-box" style="margin-top: 16px">
             <h5>📝 Steeringに追加する規約例</h5>
-            <pre>
-## アクセシビリティ
+            <pre>## アクセシビリティ
 - キーボード操作に対応すること
 - aria属性を適切に設定すること
 - コントラスト比4.5:1以上を確保すること
 
 ## アニメーション
 - 200ms以下のトランジションを使用
-- prefers-reduced-motionを考慮</pre
-            >
+- prefers-reduced-motionを考慮
+
+## PWA要件
+- Service Workerでオフライン対応
+- マニフェストファイルの設定
+- インストール可能なアプリとして動作</pre>
           </div>
         </div>
       </section>
@@ -1640,13 +1683,9 @@ $ npm install</code>
             <h5>📖 ドキュメント</h5>
             <p>kiro.dev/docs</p>
           </a>
-          <a
-            href="https://github.com/aws/kiro"
-            target="_blank"
-            class="link-card"
-          >
-            <h5>💻 GitHub</h5>
-            <p>github.com/aws/kiro</p>
+          <a href="https://kiro.dev/community" target="_blank" class="link-card">
+            <h5>💻 コミュニティ</h5>
+            <p>kiro.dev/community</p>
           </a>
           <a href="https://discord.gg/kiro" target="_blank" class="link-card">
             <h5>💬 Discord</h5>
