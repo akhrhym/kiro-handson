@@ -241,6 +241,12 @@
 
       .code-block[data-lang="bash"] code {
         color: #ffffff;
+        background: transparent;
+      }
+
+      .code-block[data-lang="bash"] * {
+        color: #ffffff !important;
+        background: transparent !important;
       }
 
       .code-block[data-lang="bash"]::before {
@@ -643,6 +649,15 @@
         border-radius: 4px;
         font-family: "Consolas", "Monaco", monospace;
         font-size: 0.85em;
+      }
+
+      /* bashコードブロック内ではインラインコードスタイルを無効化 */
+      .code-block[data-lang="bash"] code.inline,
+      .code-block[data-lang="bash"] .step-content code {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+        border-radius: 0;
       }
 
       /* 印刷用スタイル */
@@ -2063,7 +2078,7 @@ $ npm install</code>
 
       // 所要時間の表示
       const timeEstimate = document.createElement("div");
-      timeEstimate.innerHTML = "⏱️ 推定所要時間: <strong>30〜45分</strong> （初回は60分程度かかる場合があります）";
+      timeEstimate.innerHTML = "⏱️ 推定所要時間: <strong>30〜45分</strong> ";
       timeEstimate.style.cssText = `
       background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
       padding: 12px 20px;
