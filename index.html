@@ -292,7 +292,7 @@
       .copy-btn {
         position: absolute;
         top: 8px;
-        right: 60px;
+        right: 80px;
         background: #3b82f6;
         color: white;
         border: none;
@@ -301,6 +301,7 @@
         font-size: 0.75rem;
         cursor: pointer;
         transition: background 0.3s;
+        z-index: 10;
       }
 
       .copy-btn:hover {
@@ -716,6 +717,7 @@
         <a href="#prereq">前提条件</a>
         <a href="#step1">Step 1</a>
         <a href="#step2">Step 2</a>
+        <a href="#terms">用語説明</a>
         <a href="#step3">Step 3</a>
         <a href="#step4">Step 4</a>
         <a href="#step5">Step 5</a>
@@ -821,6 +823,7 @@
               <strong>File → Open Folder</strong>
               から空のフォルダを選択（または新規作成）
             </p>
+            <p>ターミナルで以下のコマンドを実行：</p>
 
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
@@ -924,6 +927,47 @@ $ cd todo-app</code>
                 <strong>重要：</strong>3つすべてのファイルでApproveが必要です！
               </div>
             </div>
+
+            <div class="alert alert-info">
+              <span class="alert-icon">🔍</span>
+              <div>
+                <strong>📋 Approveとは？</strong><br>
+                Approveは、Kiroが生成した仕様を承認する重要なステップです。<br>
+                • 各ファイルの内容を確認し、要件に合っているかチェック<br>
+                • Approveしないと次のステップに進めません<br>
+                • 修正が必要な場合は、Chatで「○○を修正して」と依頼可能<br>
+                • 全ファイルをApproveすると、実装フェーズに移行できます
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 用語説明 -->
+      <section class="section" id="terms">
+        <h2>📚 重要な用語の説明</h2>
+
+        <div class="alert alert-info">
+          <span class="alert-icon">📖</span>
+          <div>
+            <strong>EARS形式：</strong><br>
+            Easy Approach to Requirements Syntax の略。要件を「WHEN（いつ）」「THE system SHALL（システムは〜する）」の形式で記述する手法。曖昧さを排除し、テスト可能な要件を作成できます。
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <span class="alert-icon">🎯</span>
+          <div>
+            <strong>正確性プロパティ：</strong><br>
+            ソフトウェアが満たすべき性質や条件を形式的に定義したもの。例：「タスクを追加すると、リストの長さが1増える」など。プロパティベーステストで自動検証されます。
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <span class="alert-icon">🎛️</span>
+          <div>
+            <strong>Steering（ステアリング）：</strong><br>
+            Kiro AIにプロジェクト固有のルールや制約を伝える仕組み。コーディング規約、技術スタック、禁止事項などを記述することで、AIが一貫した品質のコードを生成します。
           </div>
         </div>
       </section>
@@ -1049,6 +1093,57 @@ src/
               </div>
             </div>
 
+            <h3>プロジェクト設定（package.json）</h3>
+            <div class="code-block" data-lang="json">
+              <code>{
+  "name": "todo-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  }
+}</code>
+            </div>
+
+            <h3>TypeScript設定（tsconfig.json）</h3>
+            <div class="code-block" data-lang="json">
+              <code>{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}</code>
+            </div>
+
             <h3>型定義（src/types/todo.ts）</h3>
             <div class="code-block" data-lang="typescript">
               <code>export interface Todo {
@@ -1067,7 +1162,14 @@ import { Todo } from '../types/todo';
 export const useTodos = () => {
   const [todos, setTodos] = useState&lt;Todo[]&gt;(() => {
     const saved = localStorage.getItem('todos');
-    return saved ? JSON.parse(saved) : [];
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return parsed.map((todo: any) => ({
+        ...todo,
+        createdAt: new Date(todo.createdAt) // Date型に変換
+      }));
+    }
+    return [];
   });
 
   useEffect(() => {
@@ -1685,12 +1787,8 @@ Enterキーで保存、Escapeキーでキャンセルできるようにしてく
             <h5>📖 ドキュメント</h5>
             <p>kiro.dev/docs</p>
           </a>
-          <a href="https://kiro.dev/community" target="_blank" class="link-card">
-            <h5>💻 コミュニティ</h5>
-            <p>kiro.dev/community</p>
-          </a>
           <a href="https://discord.gg/kiro" target="_blank" class="link-card">
-            <h5>💬 Discord</h5>
+            <h5>� Discord</h5>
             <p>コミュニティ</p>
           </a>
         </div>
