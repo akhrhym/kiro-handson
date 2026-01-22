@@ -220,13 +220,15 @@
 
       /* コードブロック */
       .code-block {
-        background: #1e293b;
-        color: #e2e8f0;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        color: #1e293b;
         padding: 20px;
         border-radius: 10px;
         margin: 14px 0;
         overflow-x: auto;
         position: relative;
+        border-left: 4px solid #3b82f6;
       }
 
       .code-block::before {
@@ -245,6 +247,7 @@
         font-size: 0.9rem;
         line-height: 1.7;
         white-space: pre;
+        color: #1e293b;
       }
 
       .code-block .comment {
@@ -252,15 +255,15 @@
       }
 
       .code-block .keyword {
-        color: #c084fc;
+        color: #7c3aed;
       }
 
       .code-block .string {
-        color: #86efac;
+        color: #059669;
       }
 
       .code-block .type {
-        color: #67e8f9;
+        color: #0ea5e9;
       }
 
       /* コピーボタン */
@@ -268,7 +271,7 @@
         position: absolute;
         top: 8px;
         right: 60px;
-        background: #475569;
+        background: #3b82f6;
         color: white;
         border: none;
         padding: 4px 10px;
@@ -279,12 +282,13 @@
       }
 
       .copy-btn:hover {
-        background: #3b82f6;
+        background: #2563eb;
       }
 
       /* プロンプトボックス */
       .prompt-box {
-        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+        border: 1px solid #fbbf24;
         border-left: 4px solid #f59e0b;
         padding: 20px;
         border-radius: 0 12px 12px 0;
@@ -301,6 +305,7 @@
 
       .prompt-box pre {
         background: white;
+        border: 1px solid #e5e7eb;
         padding: 16px;
         border-radius: 8px;
         font-family: "Consolas", monospace;
@@ -343,14 +348,16 @@
 
       /* ディレクトリ構成 */
       .dir-tree {
-        background: #1e293b;
-        color: #e2e8f0;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        color: #1e293b;
         padding: 24px;
         border-radius: 12px;
         font-family: "Consolas", "Monaco", monospace;
         font-size: 0.85rem;
         line-height: 1.8;
         overflow-x: auto;
+        border-left: 4px solid #3b82f6;
       }
 
       .dir-tree pre {
@@ -365,11 +372,12 @@
       }
 
       .dir-tree .folder {
-        color: #60a5fa;
+        color: #3b82f6;
+        font-weight: 600;
       }
 
       .dir-tree .file {
-        color: #a5f3fc;
+        color: #059669;
       }
 
       .dir-tree .comment {
@@ -785,7 +793,8 @@
 
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>mkdir todo-app cd todo-app</code>
+              <code>mkdir todo-app
+cd todo-app</code>
             </div>
           </div>
         </div>
