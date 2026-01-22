@@ -231,6 +231,22 @@
         border-left: 4px solid #3b82f6;
       }
 
+      /* ターミナル風コードブロック */
+      .code-block[data-lang="bash"] {
+        background: #1e293b;
+        color: #e2e8f0;
+        border: 1px solid #374151;
+        border-left: 4px solid #10b981;
+      }
+
+      .code-block[data-lang="bash"] code {
+        color: #e2e8f0;
+      }
+
+      .code-block[data-lang="bash"]::before {
+        color: #9ca3af;
+      }
+
       .code-block::before {
         content: attr(data-lang);
         position: absolute;
@@ -793,8 +809,8 @@
 
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>mkdir todo-app
-cd todo-app</code>
+              <code>$ mkdir todo-app
+$ cd todo-app</code>
             </div>
           </div>
         </div>
@@ -1288,7 +1304,7 @@ h1 {
 
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>npm install</code>
+              <code>$ npm install</code>
             </div>
           </div>
         </div>
@@ -1300,7 +1316,7 @@ h1 {
 
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>npm run dev</code>
+              <code>$ npm run dev</code>
             </div>
 
             <p>
@@ -1478,8 +1494,8 @@ h1 {
             <strong>解決方法：</strong>
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>rm -rf node_modules
-npm install</code>
+              <code>$ rm -rf node_modules
+$ npm install</code>
             </div>
           </div>
         </div>
@@ -1701,9 +1717,15 @@ npm install</code>
       function copyCode(button) {
         const codeBlock = button.parentElement;
         const code = codeBlock.querySelector("code").innerText;
+        
+        // bashコマンドの場合は$プロンプトを除去
+        let textToCopy = code;
+        if (codeBlock.getAttribute('data-lang') === 'bash') {
+          textToCopy = code.replace(/^\$ /gm, '');
+        }
 
         navigator.clipboard
-          .writeText(code)
+          .writeText(textToCopy)
           .then(() => {
             const originalText = button.innerText;
             button.innerText = "コピー完了!";
@@ -1711,7 +1733,7 @@ npm install</code>
 
             setTimeout(() => {
               button.innerText = originalText;
-              button.style.background = "#475569";
+              button.style.background = "#3b82f6";
             }, 2000);
           })
           .catch((err) => {
