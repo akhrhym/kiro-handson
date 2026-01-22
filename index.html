@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kiro ハンズオン手順書 - TODOアプリ構築</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Hiragino Sans", sans-serif;
+        background: #f8fafc;
+        color: #1e293b;
+        line-height: 1.8;
+      }
+
+      /* ヘッダー */
+      .header {
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+      }
+
+      .header .subtitle {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        margin-bottom: 8px;
+      }
+
+      .header .date {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      /* ナビゲーション */
+      .nav {
+        background: white;
+        padding: 16px 20px;
+        position: sticky;
+        top: 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        overflow-x: auto;
+      }
+
+      .nav-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        gap: 8px;
+        flex-wrap: nowrap;
+      }
+
+      .nav a {
+        color: #3b82f6;
+        text-decoration: none;
+        padding: 8px 14px;
+        border-radius: 8px;
+        transition: all 0.3s;
+        font-weight: 500;
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+
+      .nav a:hover {
+        background: #3b82f6;
+        color: white;
+      }
+
+      /* メインコンテンツ */
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      /* セクション */
+      .section {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        margin-bottom: 28px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      .section h2 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 3px solid #3b82f6;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section h3 {
+        color: #475569;
+        font-size: 1.2rem;
+        margin: 24px 0 14px 0;
+      }
+
+      /* 学習目標カード */
+      .goal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .goal-card {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        padding: 20px;
+        border-radius: 12px;
+        border-left: 4px solid #3b82f6;
+      }
+
+      .goal-card h4 {
+        color: #1d4ed8;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+      }
+
+      .goal-card p {
+        color: #475569;
+        font-size: 0.9rem;
+      }
+
+      /* 前提条件テーブル */
+      .prereq-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+      }
+
+      .prereq-table th,
+      .prereq-table td {
+        padding: 14px 16px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .prereq-table th {
+        background: #f1f5f9;
+        color: #3b82f6;
+        font-weight: 600;
+      }
+
+      .prereq-table code {
+        background: #e0e7ff;
+        color: #4338ca;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 0.85em;
+      }
+
+      /* ステップヘッダー */
+      .step-header {
+        background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+
+      /* 手順番号 */
+      .step-item {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        align-items: flex-start;
+      }
+
+      .step-number {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
+
+      .step-content {
+        flex: 1;
+      }
+
+      .step-content h4 {
+        color: #1e293b;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+      }
+
+      .step-content p {
+        color: #64748b;
+        margin-bottom: 12px;
+      }
+
+      /* コードブロック */
+      .code-block {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 14px 0;
+        overflow-x: auto;
+        position: relative;
+      }
+
+      .code-block::before {
+        content: attr(data-lang);
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        font-size: 0.7rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .code-block code {
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        white-space: pre;
+      }
+
+      .code-block .comment {
+        color: #64748b;
+      }
+
+      .code-block .keyword {
+        color: #c084fc;
+      }
+
+      .code-block .string {
+        color: #86efac;
+      }
+
+      .code-block .type {
+        color: #67e8f9;
+      }
+
+      /* コピーボタン */
+      .copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 60px;
+        background: #475569;
+        color: white;
+        border: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .copy-btn:hover {
+        background: #3b82f6;
+      }
+
+      /* プロンプトボックス */
+      .prompt-box {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        border-left: 4px solid #f59e0b;
+        padding: 20px;
+        border-radius: 0 12px 12px 0;
+        margin: 16px 0;
+      }
+
+      .prompt-box h5 {
+        color: #92400e;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .prompt-box pre {
+        background: white;
+        padding: 16px;
+        border-radius: 8px;
+        font-family: "Consolas", monospace;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        color: #1e293b;
+      }
+
+      /* ファイル説明 */
+      .file-desc {
+        display: grid;
+        gap: 12px;
+        margin: 16px 0;
+      }
+
+      .file-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 18px;
+        background: #f8fafc;
+        border-radius: 10px;
+        border-left: 4px solid #3b82f6;
+      }
+
+      .file-icon {
+        font-size: 1.5rem;
+      }
+
+      .file-info h5 {
+        color: #1e293b;
+        font-size: 0.95rem;
+      }
+
+      .file-info p {
+        color: #64748b;
+        font-size: 0.85rem;
+      }
+
+      /* ディレクトリ構成 */
+      .dir-tree {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 24px;
+        border-radius: 12px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 0.85rem;
+        line-height: 1.8;
+        overflow-x: auto;
+      }
+
+      .dir-tree .folder {
+        color: #60a5fa;
+      }
+
+      .dir-tree .file {
+        color: #a5f3fc;
+      }
+
+      .dir-tree .comment {
+        color: #64748b;
+      }
+
+      /* Hooks設定テーブル */
+      .config-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+      }
+
+      .config-table th,
+      .config-table td {
+        padding: 12px 16px;
+        text-align: left;
+        border: 1px solid #e2e8f0;
+      }
+
+      .config-table th {
+        background: #f1f5f9;
+        color: #475569;
+        font-weight: 600;
+        width: 140px;
+      }
+
+      .config-table td {
+        font-family: "Consolas", monospace;
+        color: #3b82f6;
+      }
+
+      /* チェックリスト */
+      .checklist {
+        list-style: none;
+      }
+
+      .checklist li {
+        padding: 14px 18px;
+        margin-bottom: 10px;
+        background: #f8fafc;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        transition: background 0.3s;
+        cursor: pointer;
+      }
+
+      .checklist li:hover {
+        background: #e0f2fe;
+      }
+
+      .checklist li.checked {
+        background: #dcfce7;
+      }
+
+      .checklist input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        accent-color: #3b82f6;
+        cursor: pointer;
+      }
+
+      .checklist label {
+        cursor: pointer;
+        flex: 1;
+      }
+
+      /* リンクセクション */
+      .links-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .link-card {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        padding: 18px;
+        border-radius: 12px;
+        text-decoration: none;
+        color: #1d4ed8;
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+      }
+
+      .link-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+      }
+
+      .link-card h5 {
+        margin-bottom: 6px;
+      }
+
+      .link-card p {
+        font-size: 0.8rem;
+        color: #64748b;
+        word-break: break-all;
+      }
+
+      /* アラート */
+      .alert {
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin: 16px 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .alert-info {
+        background: #dbeafe;
+        border-left: 4px solid #3b82f6;
+      }
+
+      .alert-tip {
+        background: #dcfce7;
+        border-left: 4px solid #22c55e;
+      }
+
+      .alert-warning {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+      }
+
+      .alert-icon {
+        font-size: 1.3rem;
+      }
+
+      /* トラブルシューティング */
+      .trouble-item {
+        background: #fef2f2;
+        border-left: 4px solid #ef4444;
+        padding: 16px 20px;
+        border-radius: 0 10px 10px 0;
+        margin: 12px 0;
+      }
+
+      .trouble-item h5 {
+        color: #dc2626;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .trouble-item p {
+        color: #64748b;
+        font-size: 0.9rem;
+      }
+
+      .trouble-item .solution {
+        background: white;
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 10px;
+        color: #1e293b;
+      }
+
+      /* 進捗バー */
+      .progress-container {
+        background: #e2e8f0;
+        border-radius: 10px;
+        height: 12px;
+        margin: 20px 0;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+      }
+
+      .progress-text {
+        text-align: center;
+        color: #64748b;
+        font-size: 0.9rem;
+        margin-top: 8px;
+      }
+
+      /* チャレンジセクション */
+      .challenge-card {
+        background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+        border: 2px dashed #c084fc;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 16px 0;
+      }
+
+      .challenge-card h4 {
+        color: #7c3aed;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .challenge-card ul {
+        margin-left: 24px;
+        color: #6b7280;
+      }
+
+      .challenge-card li {
+        margin-bottom: 8px;
+      }
+
+      /* フッター */
+      .footer {
+        text-align: center;
+        padding: 40px;
+        color: #64748b;
+        font-size: 0.9rem;
+        background: white;
+        margin-top: 40px;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: #3b82f6;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #1d4ed8;
+      }
+
+      /* インラインコード */
+      code.inline,
+      .step-content code {
+        background: #e0e7ff;
+        color: #4338ca;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 0.85em;
+      }
+
+      /* 印刷用スタイル */
+      @media print {
+        .nav,
+        .copy-btn {
+          display: none;
+        }
+        .section {
+          break-inside: avoid;
+          box-shadow: none;
+          border: 1px solid #e2e8f0;
+        }
+      }
+
+      /* レスポンシブ */
+      @media (max-width: 640px) {
+        .header h1 {
+          font-size: 1.8rem;
+        }
+        .section {
+          padding: 20px;
+        }
+        .step-item {
+          flex-direction: column;
+        }
+        .goal-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header class="header">
+      <h1>🚀 Kiro ハンズオン手順書</h1>
+      <p class="subtitle">仕様駆動開発によるTODOアプリ構築ハンズオン</p>
+      <p class="date">2025年7月</p>
+    </header>
+
+    <!-- ナビゲーション -->
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="#goals">学習目標</a>
+        <a href="#prereq">前提条件</a>
+        <a href="#step1">Step 1</a>
+        <a href="#step2">Step 2</a>
+        <a href="#step3">Step 3</a>
+        <a href="#step4">Step 4</a>
+        <a href="#step5">Step 5</a>
+        <a href="#step6">Step 6</a>
+        <a href="#checklist">チェックリスト</a>
+        <a href="#trouble">トラブル対応</a>
+        <a href="#challenge">チャレンジ</a>
+      </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main class="container">
+      <!-- 学習目標 -->
+      <section class="section" id="goals">
+        <h2>🎯 このハンズオンで学ぶこと</h2>
+
+        <div class="goal-grid">
+          <div class="goal-card">
+            <h4>📋 Specs</h4>
+            <p>自然言語から要件・設計・タスクを自動生成</p>
+          </div>
+          <div class="goal-card">
+            <h4>🎛️ Steering</h4>
+            <p>プロジェクト固有のルールをAIに伝達</p>
+          </div>
+          <div class="goal-card">
+            <h4>💬 Chat</h4>
+            <p>コンテキストを理解したAIとの対話</p>
+          </div>
+          <div class="goal-card">
+            <h4>🔗 Hooks</h4>
+            <p>ファイル変更時の自動処理</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 前提条件 -->
+      <section class="section" id="prereq">
+        <h2>📋 前提条件</h2>
+
+        <table class="prereq-table">
+          <tr>
+            <th>項目</th>
+            <th>要件</th>
+            <th>確認方法</th>
+          </tr>
+          <tr>
+            <td>Kiro IDE</td>
+            <td>インストール済み</td>
+            <td>アプリケーション一覧で確認</td>
+          </tr>
+          <tr>
+            <td>Node.js</td>
+            <td>v18以上</td>
+            <td><code>node -v</code></td>
+          </tr>
+          <tr>
+            <td>AWS Builder ID</td>
+            <td>サインアップ済み</td>
+            <td>サインインできることを確認</td>
+          </tr>
+        </table>
+
+        <div class="alert alert-info">
+          <span class="alert-icon">ℹ️</span>
+          <div>
+            Kiro IDEは
+            <a href="https://kiro.dev" target="_blank">kiro.dev</a>
+            からダウンロードできます。現在プレビュー版として無料で利用可能です。
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 1 -->
+      <section class="section" id="step1">
+        <div class="step-header">Step 1: プロジェクトのセットアップ</div>
+
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Kiro IDEを起動してサインイン</h4>
+            <p>Kiro IDEを起動し、AWS Builder IDでサインインします。</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>新規プロジェクトフォルダを作成</h4>
+            <p>
+              <strong>File → Open Folder</strong>
+              から空のフォルダを選択（または新規作成）
+            </p>
+
+            <div class="code-block" data-lang="bash">
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code>mkdir todo-app cd todo-app</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 2 -->
+      <section class="section" id="step2">
+        <div class="step-header">Step 2: Specsで仕様を作成</div>
+
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Specの作成を開始</h4>
+            <p>
+              左サイドバーの <strong>「SPECS」</strong> セクションで
+              <strong>「+」</strong> ボタンをクリック
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>プロンプトを入力</h4>
+
+            <div class="prompt-box">
+              <h5>📝 入力するプロンプト</h5>
+              <pre>
+シンプルなTODOアプリを作成したい。
+- タスクの追加・削除・完了切り替えができる
+- React + TypeScriptで実装
+- ローカルストレージでデータ永続化
+- シンプルでモダンなUI</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h4>自動生成されるファイルを確認</h4>
+
+            <div class="file-desc">
+              <div class="file-item">
+                <span class="file-icon">📋</span>
+                <div class="file-info">
+                  <h5>requirements.md</h5>
+                  <p>要件定義・ユーザーストーリー</p>
+                </div>
+              </div>
+              <div class="file-item">
+                <span class="file-icon">🏗️</span>
+                <div class="file-info">
+                  <h5>design.md</h5>
+                  <p>技術設計・アーキテクチャ</p>
+                </div>
+              </div>
+              <div class="file-item">
+                <span class="file-icon">✅</span>
+                <div class="file-info">
+                  <h5>tasks.md</h5>
+                  <p>実装タスクリスト</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-tip">
+              <span class="alert-icon">💡</span>
+              <div>
+                各ファイルを確認し、必要に応じて修正 →
+                <strong>「Approve」</strong> ボタンで承認
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 3 -->
+      <section class="section" id="step3">
+        <div class="step-header">Step 3: Steeringを設定</div>
+
+        <div class="step-item">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h4>Steeringファイルを作成</h4>
+            <p>
+              左サイドバーの <strong>「AGENT STEERING」</strong> セクションで
+              <strong>「+」</strong> ボタンをクリック
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">7</div>
+          <div class="step-content">
+            <h4>プロジェクトルールを記述</h4>
+            <p><code>product.md</code> を選択し、以下を記述：</p>
+
+            <div class="code-block" data-lang="markdown">
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code
+                ># TODOアプリ プロジェクトガイドライン ## 技術スタック - React
+                18 - TypeScript - Vite - CSS Modules ## コーディング規約 -
+                関数コンポーネントを使用 -
+                カスタムフックで状態管理ロジックを分離 - 日本語コメントを推奨 ##
+                ディレクトリ構成 src/ ├── components/ # UIコンポーネント ├──
+                hooks/ # カスタムフック ├── types/ # 型定義 └── utils/ #
+                ユーティリティ関数 ## 禁止事項 - anyの使用禁止 -
+                classコンポーネント禁止</code
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 4 -->
+      <section class="section" id="step4">
+        <div class="step-header">Step 4: タスクに従って実装</div>
+
+        <div class="step-item">
+          <div class="step-number">8</div>
+          <div class="step-content">
+            <h4>タスクリストを開いて実行</h4>
+            <p>生成された <code>tasks.md</code> を開き、Chatで以下を指示：</p>
+
+            <div class="prompt-box">
+              <h5>📝 入力するプロンプト</h5>
+              <pre>最初のタスクから順番に実行してください</pre>
+            </div>
+
+            <p>
+              または、タスクを選択して
+              <strong>「Start task」</strong> をクリック
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">9</div>
+          <div class="step-content">
+            <h4>生成されるコードを確認</h4>
+
+            <h3>型定義（src/types/todo.ts）</h3>
+            <div class="code-block" data-lang="typescript">
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code
+                >export interface Todo { id: string; text: string; completed:
+                boolean; createdAt: Date; }</code
+              >
+            </div>
+
+            <h3>カスタムフック（src/hooks/useTodos.ts）</h3>
+            <div class="code-block" data-lang="typescript">
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code
+                >import { useState, useEffect } from 'react'; import { Todo }
+                from '../types/todo'; export const useTodos = () => { const
+                [todos, setTodos] = useState&lt;Todo[]&gt;(() => { const saved =
+                localStorage.getItem('todos'); return saved ? JSON.parse(saved)
+                : []; }); useEffect(() => { localStorage.setItem('todos',
+                JSON.stringify(todos)); }, [todos]); const addTodo = (text:
+                string) => { const newTodo: Todo = { id: Date.now().toString(),
+                text, completed: false, createdAt: new Date() };
+                setTodos([...todos, newTodo]); }; const toggleTodo = (id:
+                string) => { setTodos(todos.map(todo => todo. todo.id === id ? {
+                ...todo, completed: !todo.completed } : todo )); }; const
+                deleteTodo = (id: string) => { setTodos(todos.filter(todo =>
+                todo.id !== id)); }; return { todos, addTodo, toggleTodo,
+                deleteTodo }; };</code
+              >
+            </div>
+
+            <h3>メインコンポーネント（src/App.tsx）</h3>
+            <div class="code-block" data-lang="typescript">
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code
+                >import { useState } from 'react'; import { useTodos } from
+                './hooks/useTodos'; import './App.css'; function App() { const
+                [inputValue, setInputValue] = useState(''); const { todos,
+                addTodo, toggleTodo, deleteTodo } = useTodos(); const
+                handleSubmit = (e: React.FormEvent) => { e.preventDefault(); if
+                (inputValue.trim()) { addTodo(inputValue.trim());
+                setInputValue(''); } }; return ( &lt;div className="app"&gt;
+                &lt;h1&gt;📝 TODOアプリ&lt;/h1&gt; &lt;form
+                onSubmit={handleSubmit} className="todo-form"&gt; &lt;input
+                type="text" value={inputValue} onChange={(e) =>
+                setInputValue(e.target.value)}
+                placeholder="新しいタスクを入力..." className="todo-input" /&gt;
+                &lt;button type="submit"
+                className="add-btn"&gt;追加&lt;/button&gt; &lt;/form&gt; &lt;ul
+                className="todo-list"&gt; {todos.map(todo => ( &lt;li
+                key={todo.id} className={todo.completed ? 'completed' : ''}&gt;
+                &lt;input type="checkbox" checked={todo.completed} onChange={()
+                => toggleTodo(todo.id)} /&gt;
+                &lt;span&gt;{todo.text}&lt;/span&gt; &lt;button onClick={() =>
+                deleteTodo(todo.id)}&gt;🗑️&lt;/button&gt; &lt;/li&gt; ))}
+                &lt;/ul&gt; &lt;p className="todo-count"&gt; 残りタスク:
+                {todos.filter(t => !t.completed).length}件 &lt;/p&gt;
+                &lt;/div&gt; ); } export default App;</code
+              >
+            </div>
+
+            <h3>スタイル（src/App.css）</h3>
+            <div class="code-block" data-lang="css">
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code
+                >.app { max-width: 500px; margin: 40px auto; padding: 20px;
+                font-family: sans-serif; } h1 { text-align: center; color: #333;
+                } .todo-form { display: flex; gap: 10px; margin-bottom: 20px; }
+                .todo-input { flex: 1; padding: 12px; border: 2px solid #ddd;
+                border-radius: 8px; font-size: 16px; } .todo-input:focus {
+                outline: none; border-color: #3b82f6; } .add-btn { padding: 12px
+                24px; background: #3b82f6; color: white; border: none;
+                border-radius: 8px; cursor: pointer; font-size: 16px; }
+                .add-btn:hover { background: #2563eb; } .todo-list { list-style:
+                none; padding: 0; } .todo-list li { display: flex; align-items:
+                center; gap: 12px; padding: 12px; background: #f8fafc;
+                border-radius: 8px; margin-bottom: 8px; } .todo-list
+                li.completed span { text-decoration: line-through; color:
+                #9ca3af; } .todo-list li span { flex: 1; } .todo-list li button
+                { background: none; border: none; cursor: pointer; font-size:
+                18px; } .todo-count { text-align: center; color: #6b7280;
+                margin-top: 20px; }</code
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 5 -->
+      <section class="section" id="step5">
+        <div class="step-header">Step 5: Hooksを設定（オプション）</div>
+
+        <div class="step-item">
+          <div class="step-number">10</div>
+          <div class="step-content">
+            <h4>自動テスト生成Hookを作成</h4>
+            <p>
+              左サイドバーの <strong>「AGENT HOOKS」</strong> セクションで
+              <strong>「+」</strong> ボタンをクリック
+            </p>
+
+            <table class="config-table">
+              <tr>
+                <th>設定項目</th>
+                <td>値</td>
+              </tr>
+              <tr>
+                <th>Event</th>
+                <td>File Saved</td>
+              </tr>
+              <tr>
+                <th>File path</th>
+                <td>src/**/*.ts</td>
+              </tr>
+            </table>
+
+            <div class="prompt-box">
+              <h5>📝 Instructions</h5>
+              <pre>
+ファイルが保存されたら：
+1. 変更内容を分析
+2. 対応するテストファイルを作成・更新
+3. テストを実行して結果を報告</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">11</div>
+          <div class="step-content">
+            <h4>README自動更新Hookを作成（オプション）</h4>
+
+            <table class="config-table">
+              <tr>
+                <th>設定項目</th>
+                <td>値</td>
+              </tr>
+              <tr>
+                <th>Event</th>
+                <td>File Saved</td>
+              </tr>
+              <tr>
+                <th>File path</th>
+                <td>src/components/**/*.tsx</td>
+              </tr>
+            </table>
+
+            <div class="prompt-box">
+              <h5>📝 Instructions</h5>
+              <pre>
+コンポーネントが変更されたら：
+1. コンポーネントのPropsを分析
+2. README.mdのコンポーネント一覧を更新
+3. 使用例を追加</pre
+              >
+            </div>
+
+            <div class="alert alert-info">
+              <span class="alert-icon">ℹ️</span>
+              <div>
+                Hooksは自動で実行されるため、頻繁に変更するファイルに設定する場合は注意してください。
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 6 -->
+      <section class="section" id="step6">
+        <div class="step-header">Step 6: 動作確認</div>
+
+        <div class="step-item">
+          <div class="step-number">12</div>
+          <div class="step-content">
+            <h4>依存関係をインストール</h4>
+
+            <div class="code-block" data-lang="bash">
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code>npm install</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">13</div>
+          <div class="step-content">
+            <h4>開発サーバーを起動</h4>
+
+            <div class="code-block" data-lang="bash">
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code>npm run dev</code>
+            </div>
+
+            <p>
+              ブラウザで
+              <a href="http://localhost:5173" target="_blank"
+                ><code>http://localhost:5173</code></a
+              >
+              を開いて動作確認
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">14</div>
+          <div class="step-content">
+            <h4>機能をテスト</h4>
+
+            <ul class="checklist" style="margin-top: 12px">
+              <li>
+                <input type="checkbox" id="test1" />
+                <label for="test1">タスクを追加できる</label>
+              </li>
+              <li>
+                <input type="checkbox" id="test2" />
+                <label for="test2">タスクを完了にできる</label>
+              </li>
+              <li>
+                <input type="checkbox" id="test3" />
+                <label for="test3">タスクを削除できる</label>
+              </li>
+              <li>
+                <input type="checkbox" id="test4" />
+                <label for="test4">ページリロード後もデータが残る</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>📁 最終的なディレクトリ構成</h3>
+
+        <div class="dir-tree">
+          <span class="folder">todo-app/</span>
+          ├── <span class="folder">.kiro/</span> │ ├──
+          <span class="folder">specs/</span> │ │ └──
+          <span class="folder">todo-app/</span> │ │ ├──
+          <span class="file">requirements.md</span>
+          <span class="comment"># 要件定義</span> │ │ ├──
+          <span class="file">design.md</span>
+          <span class="comment"># 技術設計</span> │ │ └──
+          <span class="file">tasks.md</span>
+          <span class="comment"># タスクリスト</span> │ ├──
+          <span class="folder">steering/</span> │ │ └──
+          <span class="file">product.md</span>
+          <span class="comment"># プロジェクトルール</span> │ └──
+          <span class="folder">hooks/</span> │ └──
+          <span class="file">auto-test.md</span>
+          <span class="comment"># 自動テストHook</span> ├──
+          <span class="folder">src/</span> │ ├──
+          <span class="folder">components/</span> │ │ ├──
+          <span class="file">TodoItem.tsx</span>
+          <span class="comment"># TODOアイテム</span> │ │ ├──
+          <span class="file">TodoList.tsx</span>
+          <span class="comment"># TODOリスト</span> │ │ └──
+          <span class="file">TodoForm.tsx</span>
+          <span class="comment"># 入力フォーム</span> │ ├──
+          <span class="folder">hooks/</span> │ │ └──
+          <span class="file">useTodos.ts</span>
+          <span class="comment"># TODO管理Hook</span> │ ├──
+          <span class="folder">types/</span> │ │ └──
+          <span class="file">todo.ts</span>
+          <span class="comment"># 型定義</span> │ ├──
+          <span class="file">App.tsx</span>
+          <span class="comment"># メインコンポーネント</span> │ ├──
+          <span class="file">App.css</span>
+          <span class="comment"># スタイル</span> │ └──
+          <span class="file">main.tsx</span>
+          <span class="comment"># エントリーポイント</span> ├──
+          <span class="file">index.html</span> ├──
+          <span class="file">package.json</span> ├──
+          <span class="file">tsconfig.json</span> └──
+          <span class="file">vite.config.ts</span>
+        </div>
+      </section>
+
+      <!-- チェックリスト -->
+      <section class="section" id="checklist">
+        <h2>✅ 完了チェックリスト</h2>
+
+        <p>ハンズオンが完了したら、以下の項目を確認してください：</p>
+
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        <p class="progress-text" id="progressText">0 / 10 完了</p>
+
+        <ul class="checklist" id="mainChecklist">
+          <li>
+            <input type="checkbox" id="check1" onchange="updateProgress()" />
+            <label for="check1">Kiro IDEでプロジェクトを開けた</label>
+          </li>
+          <li>
+            <input type="checkbox" id="check2" onchange="updateProgress()" />
+            <label for="check2">Specsで仕様を作成できた</label>
+          </li>
+          <li>
+            <input type="checkbox" id="check3" onchange="updateProgress()" />
+            <label for="check3">requirements.md が生成された</label>
+          </li>
+          <li>
+            <input type="checkbox" id="check4" onchange="updateProgress()" />
+            <label for="check4">design.md が生成された</label>
+          </li>
+          <li>
+            <input type="checkbox" id="check5" onchange="updateProgress()" />
+            <label for="check5">tasks.md が生成された</label>
+          </li>
+          <li>
+            <input type="checkbox" id="check6" onchange="updateProgress()" />
+            <label for="check6">Steeringを設定できた</label>
+          </li>
+          <li>
+            <input type="checkbox" id="check7" onchange="updateProgress()" />
+            <label for="check7">タスクに従って実装が完了した</label>
+          </li>
+          <li>
+            <input type="checkbox" id="check8" onchange="updateProgress()" />
+            <label for="check8">TODOアプリが動作する</label>
+          </li>
+          <li>
+            <input type="checkbox" id="check9" onchange="updateProgress()" />
+            <label for="check9">ローカルストレージにデータが保存される</label>
+          </li>
+          <li>
+            <input type="checkbox" id="check10" onchange="updateProgress()" />
+            <label for="check10">Hooksの仕組みを理解した</label>
+          </li>
+        </ul>
+      </section>
+
+      <!-- トラブルシューティング -->
+      <section class="section" id="trouble">
+        <h2>🔧 トラブルシューティング</h2>
+
+        <div class="trouble-item">
+          <h5>❌ Specsが生成されない</h5>
+          <p>プロンプトが短すぎるか、具体性が不足している可能性があります。</p>
+          <div class="solution">
+            <strong>解決方法：</strong>
+            <ul style="margin-left: 20px; margin-top: 8px">
+              <li>より具体的な要件を記述する</li>
+              <li>技術スタックを明示する</li>
+              <li>ネットワーク接続を確認する</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <h5>❌ npm run dev でエラーが出る</h5>
+          <p>依存関係のインストールが完了していない可能性があります。</p>
+          <div class="solution">
+            <strong>解決方法：</strong>
+            <div class="code-block" data-lang="bash" style="margin-top: 8px">
+              <code>rm -rf node_modules npm install</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <h5>❌ TypeScriptエラーが発生する</h5>
+          <p>
+            型定義が不足しているか、インポートパスが間違っている可能性があります。
+          </p>
+          <div class="solution">
+            <strong>解決方法：</strong>
+            <ul style="margin-left: 20px; margin-top: 8px">
+              <li>Chatで「TypeScriptエラーを修正して」と依頼</li>
+              <li>tsconfig.json の設定を確認</li>
+              <li>相対パスが正しいか確認</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <h5>❌ ローカルストレージに保存されない</h5>
+          <p>
+            ブラウザの設定でローカルストレージが無効になっている可能性があります。
+          </p>
+          <div class="solution">
+            <strong>解決方法：</strong>
+            <ul style="margin-left: 20px; margin-top: 8px">
+              <li>
+                ブラウザの開発者ツール → Application → Local Storage で確認
+              </li>
+              <li>シークレットモードでは保存されない場合があります</li>
+              <li>ブラウザの設定でCookieとサイトデータを許可</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <h5>❌ Hooksが自動実行されない</h5>
+          <p>Hookの設定が正しくない可能性があります。</p>
+          <div class="solution">
+            <strong>解決方法：</strong>
+            <ul style="margin-left: 20px; margin-top: 8px">
+              <li>File pathのパターンが正しいか確認（glob形式）</li>
+              <li>Hookが有効になっているか確認</li>
+              <li>対象ファイルを保存して動作確認</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- チャレンジ -->
+      <section class="section" id="challenge">
+        <h2>🚀 チャレンジ課題</h2>
+
+        <p>
+          基本のハンズオンが完了したら、以下の追加機能に挑戦してみましょう！
+        </p>
+
+        <div class="challenge-card">
+          <h4>⭐ Level 1: 基本機能の拡張</h4>
+          <ul>
+            <li>タスクの編集機能を追加</li>
+            <li>タスクの優先度（高・中・低）を設定できるようにする</li>
+            <li>完了済みタスクを一括削除するボタンを追加</li>
+          </ul>
+
+          <div class="prompt-box" style="margin-top: 16px">
+            <h5>📝 Chatに入力するプロンプト例</h5>
+            <pre>タスクをダブルクリックで編集できる機能を追加してください</pre>
+          </div>
+        </div>
+
+        <div class="challenge-card">
+          <h4>⭐⭐ Level 2: フィルタリングとソート</h4>
+          <ul>
+            <li>「すべて」「未完了」「完了済み」のフィルタータブを追加</li>
+            <li>作成日時でソートする機能</li>
+            <li>タスクの検索機能</li>
+          </ul>
+
+          <div class="prompt-box" style="margin-top: 16px">
+            <h5>📝 Specsに追加するプロンプト例</h5>
+            <pre>
+フィルタリング機能を追加したい：
+- タブで「すべて」「未完了」「完了済み」を切り替え
+- 現在のフィルター状態をURLパラメータで管理
+- フィルター切り替え時のアニメーション</pre
+            >
+          </div>
+        </div>
+
+        <div class="challenge-card">
+          <h4>⭐⭐⭐ Level 3: 高度な機能</h4>
+          <ul>
+            <li>ドラッグ&ドロップで並び替え</li>
+            <li>カテゴリー（タグ）機能の追加</li>
+            <li>期限日の設定と通知</li>
+            <li>ダークモードの実装</li>
+          </ul>
+
+          <div class="prompt-box" style="margin-top: 16px">
+            <h5>📝 Steeringに追加する規約例</h5>
+            <pre>
+## アクセシビリティ
+- キーボード操作に対応すること
+- aria属性を適切に設定すること
+- コントラスト比4.5:1以上を確保すること
+
+## アニメーション
+- 200ms以下のトランジションを使用
+- prefers-reduced-motionを考慮</pre
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- 参考リンク -->
+      <section class="section" id="links">
+        <h2>🔗 参考リンク</h2>
+
+        <div class="links-grid">
+          <a href="https://kiro.dev" target="_blank" class="link-card">
+            <h5>📘 Kiro公式サイト</h5>
+            <p>kiro.dev</p>
+          </a>
+          <a href="https://kiro.dev/docs" target="_blank" class="link-card">
+            <h5>📖 ドキュメント</h5>
+            <p>kiro.dev/docs</p>
+          </a>
+          <a
+            href="https://github.com/aws/kiro"
+            target="_blank"
+            class="link-card"
+          >
+            <h5>💻 GitHub</h5>
+            <p>github.com/aws/kiro</p>
+          </a>
+          <a href="https://discord.gg/kiro" target="_blank" class="link-card">
+            <h5>💬 Discord</h5>
+            <p>コミュニティ</p>
+          </a>
+        </div>
+
+        <div class="alert alert-tip" style="margin-top: 24px">
+          <span class="alert-icon">💡</span>
+          <div>
+            <strong>次のステップ：</strong>
+            <ul style="margin-left: 20px; margin-top: 8px">
+              <li>MCP（Model Context Protocol）サーバーとの連携</li>
+              <li>チームでのSteering共有</li>
+              <li>CI/CDパイプラインへのKiro統合</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- まとめ -->
+      <section class="section" id="summary">
+        <h2>📝 まとめ</h2>
+
+        <p>このハンズオンで学んだKiroの主要機能：</p>
+
+        <table class="prereq-table" style="margin-top: 16px">
+          <tr>
+            <th>機能</th>
+            <th>役割</th>
+            <th>ファイルの場所</th>
+          </tr>
+          <tr>
+            <td><strong>Specs</strong></td>
+            <td>自然言語から仕様を自動生成</td>
+            <td><code>.kiro/specs/</code></td>
+          </tr>
+          <tr>
+            <td><strong>Steering</strong></td>
+            <td>プロジェクトルールをAIに伝達</td>
+            <td><code>.kiro/steering/</code></td>
+          </tr>
+          <tr>
+            <td><strong>Hooks</strong></td>
+            <td>ファイル変更時の自動処理</td>
+            <td><code>.kiro/hooks/</code></td>
+          </tr>
+          <tr>
+            <td><strong>Chat</strong></td>
+            <td>コンテキストを理解した対話</td>
+            <td>サイドパネル</td>
+          </tr>
+        </table>
+
+        <div class="alert alert-info" style="margin-top: 24px">
+          <span class="alert-icon">🎉</span>
+          <div>
+            <strong>おめでとうございます！</strong><br />
+            Kiroの仕様駆動開発の基本をマスターしました。この知識を活かして、より複雑なプロジェクトにも挑戦してみてください！
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://kiro.dev" target="_blank">Kiro公式サイト</a>
+        <a href="https://kiro.dev/docs" target="_blank">ドキュメント</a>
+        <a href="https://aws.amazon.com/builder-id" target="_blank"
+          >AWS Builder ID</a
+        >
+      </div>
+      <p>© 2025 Kiro Hands-on Workshop</p>
+      <p style="margin-top: 8px; font-size: 0.8rem">
+        このハンズオン資料はAWS公式のものではありません
+      </p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // コードコピー機能
+      function copyCode(button) {
+        const codeBlock = button.parentElement;
+        const code = codeBlock.querySelector("code").innerText;
+
+        navigator.clipboard
+          .writeText(code)
+          .then(() => {
+            const originalText = button.innerText;
+            button.innerText = "コピー完了!";
+            button.style.background = "#22c55e";
+
+            setTimeout(() => {
+              button.innerText = originalText;
+              button.style.background = "#475569";
+            }, 2000);
+          })
+          .catch((err) => {
+            console.error("コピーに失敗しました:", err);
+            button.innerText = "エラー";
+            button.style.background = "#ef4444";
+          });
+      }
+
+      // 進捗バー更新
+      function updateProgress() {
+        const checkboxes = document.querySelectorAll(
+          '#mainChecklist input[type="checkbox"]'
+        );
+        const total = checkboxes.length;
+        let checked = 0;
+
+        checkboxes.forEach((checkbox, index) => {
+          const li = checkbox.parentElement;
+          if (checkbox.checked) {
+            checked++;
+            li.classList.add("checked");
+          } else {
+            li.classList.remove("checked");
+          }
+        });
+
+        const percentage = (checked / total) * 100;
+        document.getElementById("progressBar").style.width = percentage + "%";
+        document.getElementById(
+          "progressText"
+        ).innerText = `${checked} / ${total} 完了`;
+
+        // 全完了時のお祝い
+        if (checked === total) {
+          confetti();
+        }
+      }
+
+      // 簡易紙吹雪エフェクト
+      function confetti() {
+        const colors = ["#3b82f6", "#8b5cf6", "#22c55e", "#f59e0b", "#ef4444"];
+
+        for (let i = 0; i < 50; i++) {
+          const confetti = document.createElement("div");
+          confetti.style.cssText = `
+          position: fixed;
+          width: 10px;
+          height: 10px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          left: ${Math.random() * 100}vw;
+          top: -10px;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          animation: fall ${2 + Math.random() * 2}s linear forwards;
+        `;
+          document.body.appendChild(confetti);
+
+          setTimeout(() => confetti.remove(), 4000);
+        }
+      }
+
+      // 紙吹雪アニメーション
+      const style = document.createElement("style");
+      style.textContent = `
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+    `;
+      document.head.appendChild(style);
+
+      // スムーズスクロール
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // ナビゲーションのアクティブ状態
+      window.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll(".section");
+        const navLinks = document.querySelectorAll(".nav a");
+
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop - 100;
+          if (window.scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.style.background = "";
+          link.style.color = "#3b82f6";
+          if (link.getAttribute("href") === "#" + current) {
+            link.style.background = "#3b82f6";
+            link.style.color = "white";
+          }
+        });
+      });
+
+      // チェックリストの状態をローカルストレージに保存
+      function saveChecklistState() {
+        const checkboxes = document.querySelectorAll(
+          '#mainChecklist input[type="checkbox"]'
+        );
+        const states = [];
+        checkboxes.forEach((checkbox) => {
+          states.push(checkbox.checked);
+        });
+        localStorage.setItem("kiro-handson-checklist", JSON.stringify(states));
+      }
+
+      // チェックリストの状態を復元
+      function loadChecklistState() {
+        const saved = localStorage.getItem("kiro-handson-checklist");
+        if (saved) {
+          const states = JSON.parse(saved);
+          const checkboxes = document.querySelectorAll(
+            '#mainChecklist input[type="checkbox"]'
+          );
+          checkboxes.forEach((checkbox, index) => {
+            if (states[index]) {
+              checkbox.checked = true;
+            }
+          });
+          updateProgress();
+        }
+      }
+
+      // チェックボックス変更時に保存
+      document
+        .querySelectorAll('#mainChecklist input[type="checkbox"]')
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", () => {
+            updateProgress();
+            saveChecklistState();
+          });
+        });
+
+      // ページ読み込み時に状態を復元
+      document.addEventListener("DOMContentLoaded", () => {
+        loadChecklistState();
+      });
+
+      // キーボードショートカット
+      document.addEventListener("keydown", (e) => {
+        // Ctrl/Cmd + K でページ内検索風のクイックナビ
+        if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+          e.preventDefault();
+          const steps = [
+            "step1",
+            "step2",
+            "step3",
+            "step4",
+            "step5",
+            "step6",
+            "checklist",
+          ];
+          const currentIndex = steps.findIndex((s) => {
+            const el = document.getElementById(s);
+            return el && el.getBoundingClientRect().top > 0;
+          });
+          if (currentIndex > 0) {
+            document
+              .getElementById(steps[currentIndex - 1])
+              .scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      });
+
+      // 印刷用の準備
+      window.addEventListener("beforeprint", () => {
+        // チェックボックスの状態を表示用に変換
+        document.querySelectorAll(".checklist li").forEach((li) => {
+          const checkbox = li.querySelector('input[type="checkbox"]');
+          if (checkbox && checkbox.checked) {
+            li.style.background = "#dcfce7";
+          }
+        });
+      });
+
+      // トップへ戻るボタンの動的生成
+      const backToTop = document.createElement("button");
+      backToTop.innerHTML = "↑";
+      backToTop.setAttribute("aria-label", "トップへ戻る");
+      backToTop.style.cssText = `
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      color: white;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    `;
+      document.body.appendChild(backToTop);
+
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 500) {
+          backToTop.style.opacity = "1";
+          backToTop.style.visibility = "visible";
+        } else {
+          backToTop.style.opacity = "0";
+          backToTop.style.visibility = "hidden";
+        }
+      });
+
+      // ダークモードトグル（オプション）
+      const darkModeToggle = document.createElement("button");
+      darkModeToggle.innerHTML = "🌙";
+      darkModeToggle.setAttribute("aria-label", "ダークモード切替");
+      darkModeToggle.style.cssText = `
+      position: fixed;
+      bottom: 90px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #1e293b;
+      color: white;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    `;
+      document.body.appendChild(darkModeToggle);
+
+      let isDarkMode = false;
+      darkModeToggle.addEventListener("click", () => {
+        isDarkMode = !isDarkMode;
+        if (isDarkMode) {
+          document.body.style.background = "#0f172a";
+          document.body.style.color = "#e2e8f0";
+          document.querySelectorAll(".section").forEach((s) => {
+            s.style.background = "#1e293b";
+            s.style.color = "#e2e8f0";
+          });
+          document.querySelectorAll(".nav").forEach((n) => {
+            n.style.background = "#1e293b";
+          });
+          document
+            .querySelectorAll(".step-content h4, .section h2, .section h3")
+            .forEach((el) => {
+              el.style.color = "#e2e8f0";
+            });
+          darkModeToggle.innerHTML = "☀️";
+          darkModeToggle.style.background = "#fbbf24";
+        } else {
+          document.body.style.background = "#f8fafc";
+          document.body.style.color = "#1e293b";
+          document.querySelectorAll(".section").forEach((s) => {
+            s.style.background = "white";
+            s.style.color = "#1e293b";
+          });
+          document.querySelectorAll(".nav").forEach((n) => {
+            n.style.background = "white";
+          });
+          document
+            .querySelectorAll(".step-content h4, .section h2")
+            .forEach((el) => {
+              el.style.color = "#1e293b";
+            });
+          document.querySelectorAll(".section h3").forEach((el) => {
+            el.style.color = "#475569";
+          });
+          darkModeToggle.innerHTML = "🌙";
+          darkModeToggle.style.background = "#1e293b";
+        }
+      });
+
+      // ツールチップ機能
+      document.querySelectorAll("[data-tooltip]").forEach((el) => {
+        el.addEventListener("mouseenter", (e) => {
+          const tooltip = document.createElement("div");
+          tooltip.className = "tooltip";
+          tooltip.innerText = e.target.getAttribute("data-tooltip");
+          tooltip.style.cssText = `
+          position: absolute;
+          background: #1e293b;
+          color: white;
+          padding: 8px 12px;
+          border-radius: 6px;
+          font-size: 0.85rem;
+          z-index: 1001;
+          max-width: 200px;
+        `;
+          document.body.appendChild(tooltip);
+
+          const rect = e.target.getBoundingClientRect();
+          tooltip.style.left = rect.left + "px";
+          tooltip.style.top = rect.bottom + 8 + "px";
+
+          e.target._tooltip = tooltip;
+        });
+
+        el.addEventListener("mouseleave", (e) => {
+          if (e.target._tooltip) {
+            e.target._tooltip.remove();
+          }
+        });
+      });
+
+      // 所要時間の表示
+      const timeEstimate = document.createElement("div");
+      timeEstimate.innerHTML = "⏱️ 推定所要時間: <strong>30〜45分</strong>";
+      timeEstimate.style.cssText = `
+      background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1e40af;
+    `;
+      const container = document.querySelector(".container");
+      container.insertBefore(timeEstimate, container.firstChild);
+
+      console.log("🚀 Kiro ハンズオン手順書が読み込まれました");
+      console.log("📋 チェックリストの進捗は自動保存されます");
+    </script>
+  </body>
+</html>
