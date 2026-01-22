@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -12,8 +12,9 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-          "Hiragino Sans", sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+          sans-serif;
         background: #f8fafc;
         color: #1e293b;
         line-height: 1.8;
@@ -437,7 +438,9 @@
         border-radius: 12px;
         text-decoration: none;
         color: #1d4ed8;
-        transition: transform 0.3s, box-shadow 0.3s;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
         text-align: center;
       }
 
@@ -846,16 +849,30 @@
 
             <div class="code-block" data-lang="markdown">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code
-                ># TODOアプリ プロジェクトガイドライン ## 技術スタック - React
-                18 - TypeScript - Vite - CSS Modules ## コーディング規約 -
-                関数コンポーネントを使用 -
-                カスタムフックで状態管理ロジックを分離 - 日本語コメントを推奨 ##
-                ディレクトリ構成 src/ ├── components/ # UIコンポーネント ├──
-                hooks/ # カスタムフック ├── types/ # 型定義 └── utils/ #
-                ユーティリティ関数 ## 禁止事項 - anyの使用禁止 -
-                classコンポーネント禁止</code
-              >
+              <code># TODOアプリ プロジェクトガイドライン
+
+## 技術スタック
+- React 18
+- TypeScript
+- Vite
+- CSS Modules
+
+## コーディング規約
+- 関数コンポーネントを使用
+- カスタムフックで状態管理ロジックを分離
+- 日本語コメントを推奨
+
+## ディレクトリ構成
+src/
+├── components/  # UIコンポーネント
+├── hooks/       # カスタムフック
+├── types/       # 型定義
+└── utils/       # ユーティリティ関数
+
+## 禁止事項
+- anyの使用禁止
+- classコンポーネント禁止</code>
+            </div>
             </div>
           </div>
         </div>
@@ -891,85 +908,200 @@
             <h3>型定義（src/types/todo.ts）</h3>
             <div class="code-block" data-lang="typescript">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code
-                >export interface Todo { id: string; text: string; completed:
-                boolean; createdAt: Date; }</code
-              >
+              <code>export interface Todo {
+  id: string;
+  text: string;
+  completed: boolean;
+  createdAt: Date;
+}</code>
+            </div>
             </div>
 
             <h3>カスタムフック（src/hooks/useTodos.ts）</h3>
             <div class="code-block" data-lang="typescript">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code
-                >import { useState, useEffect } from 'react'; import { Todo }
-                from '../types/todo'; export const useTodos = () => { const
-                [todos, setTodos] = useState&lt;Todo[]&gt;(() => { const saved =
-                localStorage.getItem('todos'); return saved ? JSON.parse(saved)
-                : []; }); useEffect(() => { localStorage.setItem('todos',
-                JSON.stringify(todos)); }, [todos]); const addTodo = (text:
-                string) => { const newTodo: Todo = { id: Date.now().toString(),
-                text, completed: false, createdAt: new Date() };
-                setTodos([...todos, newTodo]); }; const toggleTodo = (id:
-                string) => { setTodos(todos.map(todo => todo. todo.id === id ? {
-                ...todo, completed: !todo.completed } : todo )); }; const
-                deleteTodo = (id: string) => { setTodos(todos.filter(todo =>
-                todo.id !== id)); }; return { todos, addTodo, toggleTodo,
-                deleteTodo }; };</code
-              >
+              <code>import { useState, useEffect } from 'react';
+import { Todo } from '../types/todo';
+
+export const useTodos = () => {
+  const [todos, setTodos] = useState&lt;Todo[]&gt;(() => {
+    const saved = localStorage.getItem('todos');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  const addTodo = (text: string) => {
+    const newTodo: Todo = {
+      id: Date.now().toString(),
+      text,
+      completed: false,
+      createdAt: new Date()
+    };
+    setTodos([...todos, newTodo]);
+  };
+
+  const toggleTodo = (id: string) => {
+    setTodos(todos.map(todo => 
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+  };
+
+  const deleteTodo = (id: string) => {
+    setTodos(todos.filter(todo => todo.id !== id));
+  };
+
+  return { todos, addTodo, toggleTodo, deleteTodo };
+};</code>
+            </div>
             </div>
 
             <h3>メインコンポーネント（src/App.tsx）</h3>
             <div class="code-block" data-lang="typescript">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code
-                >import { useState } from 'react'; import { useTodos } from
-                './hooks/useTodos'; import './App.css'; function App() { const
-                [inputValue, setInputValue] = useState(''); const { todos,
-                addTodo, toggleTodo, deleteTodo } = useTodos(); const
-                handleSubmit = (e: React.FormEvent) => { e.preventDefault(); if
-                (inputValue.trim()) { addTodo(inputValue.trim());
-                setInputValue(''); } }; return ( &lt;div className="app"&gt;
-                &lt;h1&gt;📝 TODOアプリ&lt;/h1&gt; &lt;form
-                onSubmit={handleSubmit} className="todo-form"&gt; &lt;input
-                type="text" value={inputValue} onChange={(e) =>
-                setInputValue(e.target.value)}
-                placeholder="新しいタスクを入力..." className="todo-input" /&gt;
-                &lt;button type="submit"
-                className="add-btn"&gt;追加&lt;/button&gt; &lt;/form&gt; &lt;ul
-                className="todo-list"&gt; {todos.map(todo => ( &lt;li
-                key={todo.id} className={todo.completed ? 'completed' : ''}&gt;
-                &lt;input type="checkbox" checked={todo.completed} onChange={()
-                => toggleTodo(todo.id)} /&gt;
-                &lt;span&gt;{todo.text}&lt;/span&gt; &lt;button onClick={() =>
-                deleteTodo(todo.id)}&gt;🗑️&lt;/button&gt; &lt;/li&gt; ))}
-                &lt;/ul&gt; &lt;p className="todo-count"&gt; 残りタスク:
-                {todos.filter(t => !t.completed).length}件 &lt;/p&gt;
-                &lt;/div&gt; ); } export default App;</code
-              >
+              <code>import { useState } from 'react';
+import { useTodos } from './hooks/useTodos';
+import './App.css';
+
+function App() {
+  const [inputValue, setInputValue] = useState('');
+  const { todos, addTodo, toggleTodo, deleteTodo } = useTodos();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (inputValue.trim()) {
+      addTodo(inputValue.trim());
+      setInputValue('');
+    }
+  };
+
+  return (
+    &lt;div className="app"&gt;
+      &lt;h1&gt;📝 TODOアプリ&lt;/h1&gt;
+      
+      &lt;form onSubmit={handleSubmit} className="todo-form"&gt;
+        &lt;input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="新しいタスクを入力..."
+          className="todo-input"
+        /&gt;
+        &lt;button type="submit" className="add-btn"&gt;追加&lt;/button&gt;
+      &lt;/form&gt;
+
+      &lt;ul className="todo-list"&gt;
+        {todos.map(todo => (
+          &lt;li key={todo.id} className={todo.completed ? 'completed' : ''}&gt;
+            &lt;input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => toggleTodo(todo.id)}
+            /&gt;
+            &lt;span&gt;{todo.text}&lt;/span&gt;
+            &lt;button onClick={() => deleteTodo(todo.id)}&gt;🗑️&lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+
+      &lt;p className="todo-count"&gt;
+        残りタスク: {todos.filter(t => !t.completed).length}件
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code>
+            </div>
             </div>
 
             <h3>スタイル（src/App.css）</h3>
             <div class="code-block" data-lang="css">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code
-                >.app { max-width: 500px; margin: 40px auto; padding: 20px;
-                font-family: sans-serif; } h1 { text-align: center; color: #333;
-                } .todo-form { display: flex; gap: 10px; margin-bottom: 20px; }
-                .todo-input { flex: 1; padding: 12px; border: 2px solid #ddd;
-                border-radius: 8px; font-size: 16px; } .todo-input:focus {
-                outline: none; border-color: #3b82f6; } .add-btn { padding: 12px
-                24px; background: #3b82f6; color: white; border: none;
-                border-radius: 8px; cursor: pointer; font-size: 16px; }
-                .add-btn:hover { background: #2563eb; } .todo-list { list-style:
-                none; padding: 0; } .todo-list li { display: flex; align-items:
-                center; gap: 12px; padding: 12px; background: #f8fafc;
-                border-radius: 8px; margin-bottom: 8px; } .todo-list
-                li.completed span { text-decoration: line-through; color:
-                #9ca3af; } .todo-list li span { flex: 1; } .todo-list li button
-                { background: none; border: none; cursor: pointer; font-size:
-                18px; } .todo-count { text-align: center; color: #6b7280;
-                margin-top: 20px; }</code
-              >
+              <code>.app {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.todo-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.todo-input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.todo-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.add-btn {
+  padding: 12px 24px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-btn:hover {
+  background: #2563eb;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.todo-list li.completed span {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.todo-list li span {
+  flex: 1;
+}
+
+.todo-list li button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.todo-count {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 20px;
+}</code>
+            </div>
             </div>
           </div>
         </div>
@@ -1120,46 +1252,33 @@
         <h3>📁 最終的なディレクトリ構成</h3>
 
         <div class="dir-tree">
-          <span class="folder">todo-app/</span>
-          ├── <span class="folder">.kiro/</span> │ ├──
-          <span class="folder">specs/</span> │ │ └──
-          <span class="folder">todo-app/</span> │ │ ├──
-          <span class="file">requirements.md</span>
-          <span class="comment"># 要件定義</span> │ │ ├──
-          <span class="file">design.md</span>
-          <span class="comment"># 技術設計</span> │ │ └──
-          <span class="file">tasks.md</span>
-          <span class="comment"># タスクリスト</span> │ ├──
-          <span class="folder">steering/</span> │ │ └──
-          <span class="file">product.md</span>
-          <span class="comment"># プロジェクトルール</span> │ └──
-          <span class="folder">hooks/</span> │ └──
-          <span class="file">auto-test.md</span>
-          <span class="comment"># 自動テストHook</span> ├──
-          <span class="folder">src/</span> │ ├──
-          <span class="folder">components/</span> │ │ ├──
-          <span class="file">TodoItem.tsx</span>
-          <span class="comment"># TODOアイテム</span> │ │ ├──
-          <span class="file">TodoList.tsx</span>
-          <span class="comment"># TODOリスト</span> │ │ └──
-          <span class="file">TodoForm.tsx</span>
-          <span class="comment"># 入力フォーム</span> │ ├──
-          <span class="folder">hooks/</span> │ │ └──
-          <span class="file">useTodos.ts</span>
-          <span class="comment"># TODO管理Hook</span> │ ├──
-          <span class="folder">types/</span> │ │ └──
-          <span class="file">todo.ts</span>
-          <span class="comment"># 型定義</span> │ ├──
-          <span class="file">App.tsx</span>
-          <span class="comment"># メインコンポーネント</span> │ ├──
-          <span class="file">App.css</span>
-          <span class="comment"># スタイル</span> │ └──
-          <span class="file">main.tsx</span>
-          <span class="comment"># エントリーポイント</span> ├──
-          <span class="file">index.html</span> ├──
-          <span class="file">package.json</span> ├──
-          <span class="file">tsconfig.json</span> └──
-          <span class="file">vite.config.ts</span>
+          <span class="folder">todo-app/</span><br>
+          ├── <span class="folder">.kiro/</span><br>
+          │   ├── <span class="folder">specs/</span><br>
+          │   │   └── <span class="folder">todo-app/</span><br>
+          │   │       ├── <span class="file">requirements.md</span> <span class="comment"># 要件定義</span><br>
+          │   │       ├── <span class="file">design.md</span> <span class="comment"># 技術設計</span><br>
+          │   │       └── <span class="file">tasks.md</span> <span class="comment"># タスクリスト</span><br>
+          │   ├── <span class="folder">steering/</span><br>
+          │   │   └── <span class="file">product.md</span> <span class="comment"># プロジェクトルール</span><br>
+          │   └── <span class="folder">hooks/</span><br>
+          │       └── <span class="file">auto-test.md</span> <span class="comment"># 自動テストHook</span><br>
+          ├── <span class="folder">src/</span><br>
+          │   ├── <span class="folder">components/</span><br>
+          │   │   ├── <span class="file">TodoItem.tsx</span> <span class="comment"># TODOアイテム</span><br>
+          │   │   ├── <span class="file">TodoList.tsx</span> <span class="comment"># TODOリスト</span><br>
+          │   │   └── <span class="file">TodoForm.tsx</span> <span class="comment"># 入力フォーム</span><br>
+          │   ├── <span class="folder">hooks/</span><br>
+          │   │   └── <span class="file">useTodos.ts</span> <span class="comment"># TODO管理Hook</span><br>
+          │   ├── <span class="folder">types/</span><br>
+          │   │   └── <span class="file">todo.ts</span> <span class="comment"># 型定義</span><br>
+          │   ├── <span class="file">App.tsx</span> <span class="comment"># メインコンポーネント</span><br>
+          │   ├── <span class="file">App.css</span> <span class="comment"># スタイル</span><br>
+          │   └── <span class="file">main.tsx</span> <span class="comment"># エントリーポイント</span><br>
+          ├── <span class="file">index.html</span><br>
+          ├── <span class="file">package.json</span><br>
+          ├── <span class="file">tsconfig.json</span><br>
+          └── <span class="file">vite.config.ts</span>
         </div>
       </section>
 
@@ -1240,8 +1359,10 @@
           <p>依存関係のインストールが完了していない可能性があります。</p>
           <div class="solution">
             <strong>解決方法：</strong>
-            <div class="code-block" data-lang="bash" style="margin-top: 8px">
-              <code>rm -rf node_modules npm install</code>
+            <div class="code-block" data-lang="bash">
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code>rm -rf node_modules
+npm install</code>
             </div>
           </div>
         </div>
@@ -1486,7 +1607,7 @@
       // 進捗バー更新
       function updateProgress() {
         const checkboxes = document.querySelectorAll(
-          '#mainChecklist input[type="checkbox"]'
+          '#mainChecklist input[type="checkbox"]',
         );
         const total = checkboxes.length;
         let checked = 0;
@@ -1503,9 +1624,8 @@
 
         const percentage = (checked / total) * 100;
         document.getElementById("progressBar").style.width = percentage + "%";
-        document.getElementById(
-          "progressText"
-        ).innerText = `${checked} / ${total} 完了`;
+        document.getElementById("progressText").innerText =
+          `${checked} / ${total} 完了`;
 
         // 全完了時のお祝い
         if (checked === total) {
@@ -1589,7 +1709,7 @@
       // チェックリストの状態をローカルストレージに保存
       function saveChecklistState() {
         const checkboxes = document.querySelectorAll(
-          '#mainChecklist input[type="checkbox"]'
+          '#mainChecklist input[type="checkbox"]',
         );
         const states = [];
         checkboxes.forEach((checkbox) => {
@@ -1604,7 +1724,7 @@
         if (saved) {
           const states = JSON.parse(saved);
           const checkboxes = document.querySelectorAll(
-            '#mainChecklist input[type="checkbox"]'
+            '#mainChecklist input[type="checkbox"]',
           );
           checkboxes.forEach((checkbox, index) => {
             if (states[index]) {
