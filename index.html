@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -12,9 +12,7 @@
       }
 
       body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
-          sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
         background: #f8fafc;
         color: #1e293b;
         line-height: 1.8;
@@ -347,6 +345,17 @@
         font-size: 0.85rem;
         line-height: 1.8;
         overflow-x: auto;
+      }
+
+      .dir-tree pre {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        white-space: pre;
       }
 
       .dir-tree .folder {
@@ -1252,33 +1261,33 @@ h1 {
         <h3>📁 最終的なディレクトリ構成</h3>
 
         <div class="dir-tree">
-          <span class="folder">todo-app/</span><br>
-          ├── <span class="folder">.kiro/</span><br>
-          │   ├── <span class="folder">specs/</span><br>
-          │   │   └── <span class="folder">todo-app/</span><br>
-          │   │       ├── <span class="file">requirements.md</span> <span class="comment"># 要件定義</span><br>
-          │   │       ├── <span class="file">design.md</span> <span class="comment"># 技術設計</span><br>
-          │   │       └── <span class="file">tasks.md</span> <span class="comment"># タスクリスト</span><br>
-          │   ├── <span class="folder">steering/</span><br>
-          │   │   └── <span class="file">product.md</span> <span class="comment"># プロジェクトルール</span><br>
-          │   └── <span class="folder">hooks/</span><br>
-          │       └── <span class="file">auto-test.md</span> <span class="comment"># 自動テストHook</span><br>
-          ├── <span class="folder">src/</span><br>
-          │   ├── <span class="folder">components/</span><br>
-          │   │   ├── <span class="file">TodoItem.tsx</span> <span class="comment"># TODOアイテム</span><br>
-          │   │   ├── <span class="file">TodoList.tsx</span> <span class="comment"># TODOリスト</span><br>
-          │   │   └── <span class="file">TodoForm.tsx</span> <span class="comment"># 入力フォーム</span><br>
-          │   ├── <span class="folder">hooks/</span><br>
-          │   │   └── <span class="file">useTodos.ts</span> <span class="comment"># TODO管理Hook</span><br>
-          │   ├── <span class="folder">types/</span><br>
-          │   │   └── <span class="file">todo.ts</span> <span class="comment"># 型定義</span><br>
-          │   ├── <span class="file">App.tsx</span> <span class="comment"># メインコンポーネント</span><br>
-          │   ├── <span class="file">App.css</span> <span class="comment"># スタイル</span><br>
-          │   └── <span class="file">main.tsx</span> <span class="comment"># エントリーポイント</span><br>
-          ├── <span class="file">index.html</span><br>
-          ├── <span class="file">package.json</span><br>
-          ├── <span class="file">tsconfig.json</span><br>
-          └── <span class="file">vite.config.ts</span>
+          <pre><span class="folder">todo-app/</span>
+├── <span class="folder">.kiro/</span>
+│   ├── <span class="folder">specs/</span>
+│   │   └── <span class="folder">todo-app/</span>
+│   │       ├── <span class="file">requirements.md</span> <span class="comment"># 要件定義</span>
+│   │       ├── <span class="file">design.md</span> <span class="comment"># 技術設計</span>
+│   │       └── <span class="file">tasks.md</span> <span class="comment"># タスクリスト</span>
+│   ├── <span class="folder">steering/</span>
+│   │   └── <span class="file">product.md</span> <span class="comment"># プロジェクトルール</span>
+│   └── <span class="folder">hooks/</span>
+│       └── <span class="file">auto-test.md</span> <span class="comment"># 自動テストHook</span>
+├── <span class="folder">src/</span>
+│   ├── <span class="folder">components/</span>
+│   │   ├── <span class="file">TodoItem.tsx</span> <span class="comment"># TODOアイテム</span>
+│   │   ├── <span class="file">TodoList.tsx</span> <span class="comment"># TODOリスト</span>
+│   │   └── <span class="file">TodoForm.tsx</span> <span class="comment"># 入力フォーム</span>
+│   ├── <span class="folder">hooks/</span>
+│   │   └── <span class="file">useTodos.ts</span> <span class="comment"># TODO管理Hook</span>
+│   ├── <span class="folder">types/</span>
+│   │   └── <span class="file">todo.ts</span> <span class="comment"># 型定義</span>
+│   ├── <span class="file">App.tsx</span> <span class="comment"># メインコンポーネント</span>
+│   ├── <span class="file">App.css</span> <span class="comment"># スタイル</span>
+│   └── <span class="file">main.tsx</span> <span class="comment"># エントリーポイント</span>
+├── <span class="file">index.html</span>
+├── <span class="file">package.json</span>
+├── <span class="file">tsconfig.json</span>
+└── <span class="file">vite.config.ts</span></pre>
         </div>
       </section>
 
