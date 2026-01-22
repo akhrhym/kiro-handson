@@ -727,6 +727,7 @@
         <a href="#checklist">チェックリスト</a>
         <a href="#trouble">トラブル対応</a>
         <a href="#challenge">チャレンジ</a>
+        <a href="#assessment">学習効果確認</a>
       </div>
     </nav>
 
@@ -807,7 +808,7 @@
 
       <!-- Step 1 -->
       <section class="section" id="step1">
-        <div class="step-header">Step 1: プロジェクトのセットアップ</div>
+        <div class="step-header">Step 1: プロジェクトのセットアップ <span style="font-size: 0.8em; opacity: 0.8;">（約3分）</span></div>
 
         <div class="step-item">
           <div class="step-number">1</div>
@@ -838,7 +839,7 @@ $ cd todo-app</code>
 
       <!-- Step 2 -->
       <section class="section" id="step2">
-        <div class="step-header">Step 2: Specsで仕様を作成</div>
+        <div class="step-header">Step 2: Specsで仕様を作成 <span style="font-size: 0.8em; opacity: 0.8;">（約8分）</span></div>
 
         <div class="step-item">
           <div class="step-number">3</div>
@@ -941,6 +942,17 @@ $ cd todo-app</code>
                 • 全ファイルをApproveすると、実装フェーズに移行できます
               </div>
             </div>
+
+            <div class="alert alert-warning">
+              <span class="alert-icon">⚠️</span>
+              <div>
+                <strong>よくある失敗パターン：</strong><br>
+                ❌ Approveを忘れて次のステップに進もうとする<br>
+                ❌ 生成されたファイルの内容を確認せずにApprove<br>
+                ❌ プロンプトが短すぎて詳細な仕様が生成されない<br>
+                <strong>対策：</strong>各ファイルを必ず開いて内容を確認してからApprove！
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -976,7 +988,7 @@ $ cd todo-app</code>
 
       <!-- Step 3 -->
       <section class="section" id="step3">
-        <div class="step-header">Step 3: Steeringを設定</div>
+        <div class="step-header">Step 3: Steeringを設定 <span style="font-size: 0.8em; opacity: 0.8;">（約5分）</span></div>
 
         <div class="step-item">
           <div class="step-number">6</div>
@@ -1027,7 +1039,7 @@ src/
 
       <!-- Step 4 -->
       <section class="section" id="step4">
-        <div class="step-header">Step 4: タスクに従って実装</div>
+        <div class="step-header">Step 4: タスクに従って実装 <span style="font-size: 0.8em; opacity: 0.8;">（約15分）</span></div>
 
         <div class="step-item">
           <div class="step-number">8</div>
@@ -1847,6 +1859,62 @@ Enterキーで保存、Escapeキーでキャンセルできるようにしてく
           <div>
             <strong>おめでとうございます！</strong><br />
             Kiroの仕様駆動開発の基本をマスターしました。この知識を活かして、より複雑なプロジェクトにも挑戦してみてください！
+          </div>
+        </div>
+      </section>
+
+      <!-- 学習効果測定 -->
+      <section class="section" id="assessment">
+        <h2>📊 学習効果の確認</h2>
+
+        <p>ハンズオン完了後、以下の項目で理解度をチェックしてみましょう：</p>
+
+        <div class="challenge-card">
+          <h4>🎯 理解度チェック</h4>
+          <ul class="checklist" style="margin-top: 12px">
+            <li>
+              <input type="checkbox" id="understand1" />
+              <label for="understand1">Specsの3つのファイル（requirements.md、design.md、tasks.md）の役割を説明できる</label>
+            </li>
+            <li>
+              <input type="checkbox" id="understand2" />
+              <label for="understand2">Steeringファイルでプロジェクトルールを設定する目的を理解している</label>
+            </li>
+            <li>
+              <input type="checkbox" id="understand3" />
+              <label for="understand3">Hooksを使った自動化の仕組みを説明できる</label>
+            </li>
+            <li>
+              <input type="checkbox" id="understand4" />
+              <label for="understand4">Chatでタスクを一括実行する方法を理解している</label>
+            </li>
+            <li>
+              <input type="checkbox" id="understand5" />
+              <label for="understand5">EARS形式や正確性プロパティの概念を理解している</label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="alert alert-tip">
+          <span class="alert-icon">💡</span>
+          <div>
+            <strong>できるようになったこと：</strong><br>
+            ✅ 自然言語から仕様を自動生成<br>
+            ✅ AIにプロジェクト固有のルールを伝達<br>
+            ✅ 段階的なタスク実行による実装<br>
+            ✅ ファイル変更時の自動処理設定<br>
+            ✅ 仕様駆動開発の基本ワークフロー
+          </div>
+        </div>
+
+        <div class="alert alert-warning">
+          <span class="alert-icon">🚀</span>
+          <div>
+            <strong>次のステップ：</strong><br>
+            • より複雑なアプリケーション（認証機能付きなど）に挑戦<br>
+            • チームでのSteering共有とベストプラクティス構築<br>
+            • CI/CDパイプラインへのKiro統合<br>
+            • プロパティベーステストの深い理解と活用
           </div>
         </div>
       </section>
