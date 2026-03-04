@@ -753,13 +753,11 @@
             <td><code>node -v</code></td>
           </tr>
           <tr>
-            <td>AWS Builder ID</td>
-            <td>サインアップ済み</td>
+            <td>アカウント</td>
+            <td>GitHub / Google / AWS Builder ID のいずれか</td>
             <td>サインインできることを確認</td>
           </tr>
         </table>
-
-
       </section>
 
       <!-- Step 1 -->
@@ -770,7 +768,7 @@
           <div class="step-number">1</div>
           <div class="step-content">
             <h4>Kiro IDEを起動してサインイン</h4>
-            <p>Kiro IDEを起動し、AWS Builder IDでサインインします。</p>
+            <p>Kiro IDEを起動し、GitHub、Google、またはAWS Builder IDでサインインします。</p>
           </div>
         </div>
 
@@ -782,6 +780,7 @@
               <strong>File → Open Folder</strong>
               から空のフォルダを選択（または新規作成）
             </p>
+            <p>ターミナルで以下のコマンドを実行してフォルダを作成することもできます：</p>
 
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
@@ -1162,7 +1161,7 @@ h1 {
               </tr>
               <tr>
                 <th>File path</th>
-                <td>src/**/*.ts</td>
+                <td>src/**/*.{ts,tsx}</td>
               </tr>
             </table>
 
@@ -1518,19 +1517,19 @@ npm install</code>
             <h5>📘 Kiro公式サイト</h5>
             <p>kiro.dev</p>
           </a>
-          <a href="https://kiro.dev/docs" target="_blank" class="link-card">
+          <a href="https://kiro.dev/docs/" target="_blank" class="link-card">
             <h5>📖 ドキュメント</h5>
             <p>kiro.dev/docs</p>
           </a>
           <a
-            href="https://github.com/aws/kiro"
+            href="https://github.com/kirodotdev/Kiro"
             target="_blank"
             class="link-card"
           >
             <h5>💻 GitHub</h5>
-            <p>github.com/aws/kiro</p>
+            <p>github.com/kirodotdev/Kiro</p>
           </a>
-          <a href="https://discord.gg/kiro" target="_blank" class="link-card">
+          <a href="https://discord.com/servers/1374034175430230016" target="_blank" class="link-card">
             <h5>💬 Discord</h5>
             <p>コミュニティ</p>
           </a>
@@ -1597,12 +1596,12 @@ npm install</code>
     <footer class="footer">
       <div class="footer-links">
         <a href="https://kiro.dev" target="_blank">Kiro公式サイト</a>
-        <a href="https://kiro.dev/docs" target="_blank">ドキュメント</a>
-        <a href="https://aws.amazon.com/builder-id" target="_blank"
-          >AWS Builder ID</a
+        <a href="https://kiro.dev/docs/" target="_blank">ドキュメント</a>
+        <a href="https://kiro.dev/downloads/" target="_blank"
+          >ダウンロード</a
         >
       </div>
-      <p>© 2025 Kiro Hands-on Workshop</p>
+      <p>© 2026 Kiro Hands-on Workshop</p>
       <p style="margin-top: 8px; font-size: 0.8rem">
         このハンズオン資料はAWS公式のものではありません
       </p>
