@@ -59,19 +59,23 @@
         max-width: 900px;
         margin: 0 auto;
         display: flex;
-        gap: 8px;
-        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+        gap: 4px;
       }
 
       .nav a {
         color: #3b82f6;
         text-decoration: none;
-        padding: 8px 14px;
+        padding: 8px 10px;
         border-radius: 8px;
         transition: all 0.3s;
         font-weight: 500;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         white-space: nowrap;
+        flex: 1;
+        text-align: center;
       }
 
       .nav a:hover {
@@ -115,32 +119,26 @@
       .goal-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 16px;
         margin-top: 20px;
       }
 
       .goal-card {
         background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-        padding: 24px;
+        padding: 20px;
         border-radius: 12px;
         border-left: 4px solid #3b82f6;
-        min-height: 120px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
       }
 
       .goal-card h4 {
         color: #1d4ed8;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         font-size: 1.1rem;
-        font-weight: 600;
       }
 
       .goal-card p {
         color: #475569;
         font-size: 0.9rem;
-        line-height: 1.5;
       }
 
       /* 前提条件テーブル */
@@ -222,37 +220,13 @@
 
       /* コードブロック */
       .code-block {
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
-        color: #1e293b;
+        background: #1e293b;
+        color: #e2e8f0;
         padding: 20px;
         border-radius: 10px;
         margin: 14px 0;
         overflow-x: auto;
         position: relative;
-        border-left: 4px solid #3b82f6;
-      }
-
-      /* ターミナル風コードブロック */
-      .code-block[data-lang="bash"] {
-        background: #1e293b;
-        color: #ffffff;
-        border: 1px solid #374151;
-        border-left: 4px solid #10b981;
-      }
-
-      .code-block[data-lang="bash"] code {
-        color: #ffffff;
-        background: transparent;
-      }
-
-      .code-block[data-lang="bash"] * {
-        color: #ffffff !important;
-        background: transparent !important;
-      }
-
-      .code-block[data-lang="bash"]::before {
-        color: #9ca3af;
       }
 
       .code-block::before {
@@ -264,7 +238,6 @@
         color: #64748b;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        z-index: 5;
       }
 
       .code-block code {
@@ -272,7 +245,6 @@
         font-size: 0.9rem;
         line-height: 1.7;
         white-space: pre;
-        color: #1e293b;
       }
 
       .code-block .comment {
@@ -280,23 +252,23 @@
       }
 
       .code-block .keyword {
-        color: #7c3aed;
+        color: #c084fc;
       }
 
       .code-block .string {
-        color: #059669;
+        color: #86efac;
       }
 
       .code-block .type {
-        color: #0ea5e9;
+        color: #67e8f9;
       }
 
       /* コピーボタン */
       .copy-btn {
         position: absolute;
         top: 8px;
-        right: 90px;
-        background: #3b82f6;
+        right: 60px;
+        background: #475569;
         color: white;
         border: none;
         padding: 4px 10px;
@@ -304,18 +276,15 @@
         font-size: 0.75rem;
         cursor: pointer;
         transition: background 0.3s;
-        z-index: 10;
-        white-space: nowrap;
       }
 
       .copy-btn:hover {
-        background: #2563eb;
+        background: #3b82f6;
       }
 
       /* プロンプトボックス */
       .prompt-box {
-        background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
-        border: 1px solid #fbbf24;
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
         border-left: 4px solid #f59e0b;
         padding: 20px;
         border-radius: 0 12px 12px 0;
@@ -332,7 +301,6 @@
 
       .prompt-box pre {
         background: white;
-        border: 1px solid #e5e7eb;
         padding: 16px;
         border-radius: 8px;
         font-family: "Consolas", monospace;
@@ -375,16 +343,14 @@
 
       /* ディレクトリ構成 */
       .dir-tree {
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
-        color: #1e293b;
+        background: #1e293b;
+        color: #e2e8f0;
         padding: 24px;
         border-radius: 12px;
         font-family: "Consolas", "Monaco", monospace;
         font-size: 0.85rem;
         line-height: 1.8;
         overflow-x: auto;
-        border-left: 4px solid #3b82f6;
       }
 
       .dir-tree pre {
@@ -399,12 +365,11 @@
       }
 
       .dir-tree .folder {
-        color: #3b82f6;
-        font-weight: 600;
+        color: #60a5fa;
       }
 
       .dir-tree .file {
-        color: #059669;
+        color: #a5f3fc;
       }
 
       .dir-tree .comment {
@@ -656,13 +621,13 @@
         font-size: 0.85em;
       }
 
-      /* bashコードブロック内ではインラインコードスタイルを無効化 */
-      .code-block[data-lang="bash"] code.inline,
-      .code-block[data-lang="bash"] .step-content code {
+      /* コードブロック内のcodeはインラインスタイルを無効化 */
+      .code-block code {
         background: transparent;
-        color: inherit;
+        color: #e2e8f0;
         padding: 0;
         border-radius: 0;
+        font-size: 0.9rem;
       }
 
       /* 印刷用スタイル */
@@ -679,6 +644,27 @@
       }
 
       /* レスポンシブ */
+      @media (max-width: 1024px) {
+        .nav-inner {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 6px;
+        }
+        .nav a {
+          flex: 0 1 auto;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-inner {
+          flex-direction: column;
+          gap: 4px;
+        }
+        .nav a {
+          width: 100%;
+        }
+      }
+
       @media (max-width: 640px) {
         .header h1 {
           font-size: 1.8rem;
@@ -691,17 +677,6 @@
         }
         .goal-grid {
           grid-template-columns: 1fr;
-          gap: 16px;
-        }
-        .goal-card {
-          min-height: 100px;
-          padding: 20px;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .goal-grid {
-          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -711,7 +686,7 @@
     <header class="header">
       <h1>🚀 Kiro ハンズオン手順書</h1>
       <p class="subtitle">仕様駆動開発によるTODOアプリ構築ハンズオン</p>
-      <p class="date">2026年1月</p>
+      <p class="date">2026年3月6日</p>
     </header>
 
     <!-- ナビゲーション -->
@@ -721,7 +696,6 @@
         <a href="#prereq">前提条件</a>
         <a href="#step1">Step 1</a>
         <a href="#step2">Step 2</a>
-        <a href="#terms">用語説明</a>
         <a href="#step3">Step 3</a>
         <a href="#step4">Step 4</a>
         <a href="#step5">Step 5</a>
@@ -729,7 +703,6 @@
         <a href="#checklist">チェックリスト</a>
         <a href="#trouble">トラブル対応</a>
         <a href="#challenge">チャレンジ</a>
-        <a href="#assessment">学習効果確認</a>
       </div>
     </nav>
 
@@ -771,23 +744,13 @@
           </tr>
           <tr>
             <td>Kiro IDE</td>
-            <td>最新版インストール済み</td>
+            <td>インストール済み</td>
             <td>アプリケーション一覧で確認</td>
           </tr>
           <tr>
             <td>Node.js</td>
-            <td>v18.0.0以上</td>
+            <td>v18以上</td>
             <td><code>node -v</code></td>
-          </tr>
-          <tr>
-            <td>npm</td>
-            <td>v8.0.0以上</td>
-            <td><code>npm -v</code></td>
-          </tr>
-          <tr>
-            <td>OS</td>
-            <td>Windows 10/11, macOS 10.15+, Ubuntu 20.04+</td>
-            <td>システム情報で確認</td>
           </tr>
           <tr>
             <td>AWS Builder ID</td>
@@ -796,41 +759,12 @@
           </tr>
         </table>
 
-        <div class="alert alert-info">
-          <span class="alert-icon">ℹ️</span>
-          <div>
-            <strong>Kiro IDEのインストール：</strong><br />
-            1.
-            <a href="https://kiro.dev/download" target="_blank"
-              >kiro.dev/download</a
-            >
-            からお使いのOSに対応したインストーラーをダウンロード<br />
-            2. インストーラーを実行してセットアップを完了<br />
-            3. 初回起動時にAWS Builder IDでサインイン<br />
-            現在プレビュー版として無料で利用可能です。
-          </div>
-        </div>
 
-        <div class="alert alert-warning">
-          <span class="alert-icon">⚠️</span>
-          <div>
-            <strong>npmが未インストールの場合：</strong><br />
-            Step
-            6でnpmコマンドが見つからない場合は、以下でインストールしてください：<br />
-            • Ubuntu/Debian: <code>sudo apt install npm</code><br />
-            • macOS: <code>brew install node</code><br />
-            • Windows: <code>choco install nodejs</code><br />
-            詳細はStep 6の手順を参照してください。
-          </div>
-        </div>
       </section>
 
       <!-- Step 1 -->
       <section class="section" id="step1">
-        <div class="step-header">
-          Step 1: プロジェクトのセットアップ
-          <span style="font-size: 0.8em; opacity: 0.8">（約3分）</span>
-        </div>
+        <div class="step-header">Step 1: プロジェクトのセットアップ</div>
 
         <div class="step-item">
           <div class="step-number">1</div>
@@ -848,16 +782,11 @@
               <strong>File → Open Folder</strong>
               から空のフォルダを選択（または新規作成）
             </p>
-            <p>ターミナルで以下のコマンドを実行：</p>
 
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>$ mkdir todo-app</code>
-            </div>
-
-            <div class="code-block" data-lang="bash">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>$ cd todo-app</code>
+              <code>mkdir todo-app
+cd todo-app</code>
             </div>
           </div>
         </div>
@@ -865,10 +794,7 @@
 
       <!-- Step 2 -->
       <section class="section" id="step2">
-        <div class="step-header">
-          Step 2: Specsで仕様を作成
-          <span style="font-size: 0.8em; opacity: 0.8">（約8分）</span>
-        </div>
+        <div class="step-header">Step 2: Specsで仕様を作成</div>
 
         <div class="step-item">
           <div class="step-number">3</div>
@@ -904,134 +830,44 @@
           <div class="step-content">
             <h4>自動生成されるファイルを確認</h4>
 
-            <div class="alert alert-tip">
-              <span class="alert-icon">💡</span>
-              <div>
-                <strong>ファイルの確認手順：</strong><br />
-                1. 左サイドバーの「SPECS」セクションを確認<br />
-                2. 「todo-app」フォルダが新しく作成されているのを確認<br />
-                3. フォルダを展開すると3つのファイルが表示される<br />
-                4. 各ファイルをクリックして内容を確認<br />
-                5.
-                ファイル右下（エディタ下部）の青い<strong>「Approve」</strong>ボタンをクリック
-              </div>
-            </div>
-
-            <div class="alert alert-info">
-              <span class="alert-icon">📍</span>
-              <div>
-                <strong>Approveボタンの場所：</strong><br />
-                各ファイルを開くと、エディタの右下角（スクロールバーの下）に青色の「Approve」ボタンが表示されます。
-                見つからない場合は、ファイル内容を下までスクロールしてください。
-              </div>
-            </div>
-
             <div class="file-desc">
               <div class="file-item">
                 <span class="file-icon">📋</span>
                 <div class="file-info">
                   <h5>requirements.md</h5>
-                  <p>
-                    要件定義・ユーザーストーリー（EARS形式の受入基準を含む）
-                  </p>
+                  <p>要件定義・ユーザーストーリー</p>
                 </div>
               </div>
               <div class="file-item">
                 <span class="file-icon">🏗️</span>
                 <div class="file-info">
                   <h5>design.md</h5>
-                  <p>
-                    技術設計・アーキテクチャ（コンポーネント設計と正確性プロパティを含む）
-                  </p>
+                  <p>技術設計・アーキテクチャ</p>
                 </div>
               </div>
               <div class="file-item">
                 <span class="file-icon">✅</span>
                 <div class="file-info">
                   <h5>tasks.md</h5>
-                  <p>実装タスクリスト（段階的な実装手順とテスト項目を含む）</p>
+                  <p>実装タスクリスト</p>
                 </div>
               </div>
             </div>
 
-            <div class="alert alert-warning">
-              <span class="alert-icon">📝</span>
+            <div class="alert alert-tip">
+              <span class="alert-icon">💡</span>
               <div>
-                <strong>生成されたファイルの例：</strong><br />
-                •
-                requirements.mdには「タスクの追加・削除・完了切り替え」などの機能要件<br />
-                • design.mdにはReactコンポーネントの設計とデータフロー<br />
-                • tasks.mdには「1. プロジェクト初期化」「2.
-                型定義作成」などの実装手順<br />
-                <strong>重要：</strong>3つすべてのファイルでApproveが必要です！
+                各ファイルを確認し、必要に応じて修正 →
+                <strong>「Approve」</strong> ボタンで承認
               </div>
             </div>
-
-            <div class="alert alert-info">
-              <span class="alert-icon">🔍</span>
-              <div>
-                <strong>📋 Approveとは？</strong><br />
-                Approveは、Kiroが生成した仕様を承認する重要なステップです。<br />
-                • 各ファイルの内容を確認し、要件に合っているかチェック<br />
-                • Approveしないと次のステップに進めません<br />
-                • 修正が必要な場合は、Chatで「○○を修正して」と依頼可能<br />
-                • 全ファイルをApproveすると、実装フェーズに移行できます
-              </div>
-            </div>
-
-            <div class="alert alert-warning">
-              <span class="alert-icon">⚠️</span>
-              <div>
-                <strong>よくある失敗パターン：</strong><br />
-                ❌ Approveを忘れて次のステップに進もうとする<br />
-                ❌ 生成されたファイルの内容を確認せずにApprove<br />
-                ❌ プロンプトが短すぎて詳細な仕様が生成されない<br />
-                <strong>対策：</strong
-                >各ファイルを必ず開いて内容を確認してからApprove！
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 用語説明 -->
-      <section class="section" id="terms">
-        <h2>📚 重要な用語の説明</h2>
-
-        <div class="alert alert-info">
-          <span class="alert-icon">📖</span>
-          <div>
-            <strong>EARS形式：</strong><br />
-            Easy Approach to Requirements Syntax
-            の略。要件を「WHEN（いつ）」「THE system
-            SHALL（システムは〜する）」の形式で記述する手法。曖昧さを排除し、テスト可能な要件を作成できます。
-          </div>
-        </div>
-
-        <div class="alert alert-info">
-          <span class="alert-icon">🎯</span>
-          <div>
-            <strong>正確性プロパティ：</strong><br />
-            ソフトウェアが満たすべき性質や条件を形式的に定義したもの。例：「タスクを追加すると、リストの長さが1増える」など。プロパティベーステストで自動検証されます。
-          </div>
-        </div>
-
-        <div class="alert alert-info">
-          <span class="alert-icon">🎛️</span>
-          <div>
-            <strong>Steering（ステアリング）：</strong><br />
-            Kiro
-            AIにプロジェクト固有のルールや制約を伝える仕組み。コーディング規約、技術スタック、禁止事項などを記述することで、AIが一貫した品質のコードを生成します。
           </div>
         </div>
       </section>
 
       <!-- Step 3 -->
       <section class="section" id="step3">
-        <div class="step-header">
-          Step 3: Steeringを設定
-          <span style="font-size: 0.8em; opacity: 0.8">（約5分）</span>
-        </div>
+        <div class="step-header">Step 3: Steeringを設定</div>
 
         <div class="step-item">
           <div class="step-number">6</div>
@@ -1052,16 +888,29 @@
 
             <div class="code-block" data-lang="markdown">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code
-                ># TODOアプリ プロジェクトガイドライン ## 技術スタック - React
-                18 - TypeScript - Vite - CSS Modules ## コーディング規約 -
-                関数コンポーネントを使用 -
-                カスタムフックで状態管理ロジックを分離 - 日本語コメントを推奨 ##
-                ディレクトリ構成 src/ ├── components/ # UIコンポーネント ├──
-                hooks/ # カスタムフック ├── types/ # 型定義 └── utils/ #
-                ユーティリティ関数 ## 禁止事項 - anyの使用禁止 -
-                classコンポーネント禁止</code
-              >
+              <code># TODOアプリ プロジェクトガイドライン
+
+## 技術スタック
+- React 18
+- TypeScript
+- Vite
+- CSS Modules
+
+## コーディング規約
+- 関数コンポーネントを使用
+- カスタムフックで状態管理ロジックを分離
+- 日本語コメントを推奨
+
+## ディレクトリ構成
+src/
+├── components/   # UIコンポーネント
+├── hooks/        # カスタムフック
+├── types/        # 型定義
+└── utils/        # ユーティリティ関数
+
+## 禁止事項
+- anyの使用禁止
+- classコンポーネント禁止</code>
             </div>
           </div>
         </div>
@@ -1069,65 +918,23 @@
 
       <!-- Step 4 -->
       <section class="section" id="step4">
-        <div class="step-header">
-          Step 4: タスクに従って実装
-          <span style="font-size: 0.8em; opacity: 0.8">（約15分）</span>
-        </div>
+        <div class="step-header">Step 4: タスクに従って実装</div>
 
         <div class="step-item">
           <div class="step-number">8</div>
           <div class="step-content">
             <h4>タスクリストを開いて実行</h4>
+            <p>生成された <code>tasks.md</code> を開き、Chatで以下を指示：</p>
 
-            <div class="alert alert-tip">
-              <span class="alert-icon">🎯</span>
-              <div>
-                <strong>推奨：方法2（Chat実行）</strong><br />
-                初心者の方には、Chatでの一括実行をお勧めします。Kiroが自動で全タスクを順番に実行し、進捗も分かりやすく表示されます。
-              </div>
-            </div>
-
-            <div class="alert alert-info">
-              <span class="alert-icon">📋</span>
-              <div>
-                <strong>実装方法の比較：</strong><br />
-                <strong>方法1（個別実行）：</strong>
-                各タスクを個別に確認しながら進めたい場合<br />
-                　利点：細かい制御が可能　欠点：手間がかかる<br />
-                <strong>方法2（一括実行）：</strong>
-                効率的に全体を完成させたい場合<br />
-                　利点：自動化されて簡単　欠点：途中での調整が難しい
-              </div>
-            </div>
-
-            <h3>🚀 方法2：Chat一括実行（推奨）</h3>
             <div class="prompt-box">
-              <h5>📝 Chatに入力するプロンプト</h5>
-              <pre>
-tasks.mdの最初のタスクから順番に実行してください。
-各タスクが完了したら次のタスクに進み、
-すべてのタスクが完了するまで継続してください。
-進捗状況も教えてください。</pre
-              >
+              <h5>📝 入力するプロンプト</h5>
+              <pre>最初のタスクから順番に実行してください</pre>
             </div>
 
-            <h3>⚙️ 方法1：個別実行</h3>
             <p>
-              生成された <code>tasks.md</code> を開き、各タスクの横にある<strong
-                >「Start task」</strong
-              >ボタンを順番にクリック
+              または、タスクを選択して
+              <strong>「Start task」</strong> をクリック
             </p>
-
-            <div class="alert alert-warning">
-              <span class="alert-icon">⏱️</span>
-              <div>
-                <strong>完了の判断基準：</strong><br />
-                • Kiroが「タスクが完了しました」とメッセージを表示<br />
-                • 対象ファイルが生成・更新されている<br />
-                • エラーメッセージが表示されていない<br />
-                • 次のタスクに自動で進む（方法2の場合）
-              </div>
-            </div>
           </div>
         </div>
 
@@ -1136,129 +943,196 @@ tasks.mdの最初のタスクから順番に実行してください。
           <div class="step-content">
             <h4>生成されるコードを確認</h4>
 
-            <div class="alert alert-info">
-              <span class="alert-icon">📁</span>
-              <div>
-                <strong>ファイル生成の順序：</strong><br />
-                1. <code>package.json</code> と
-                <code>tsconfig.json</code> （プロジェクト設定）<br />
-                2. <code>src/types/todo.ts</code> （型定義）<br />
-                3. <code>src/hooks/useTodos.ts</code> （カスタムフック）<br />
-                4. <code>src/App.tsx</code> と
-                <code>src/App.css</code> （メインコンポーネント）<br />
-                5. <code>src/main.tsx</code> と
-                <code>index.html</code> （エントリーポイント）
-              </div>
-            </div>
-
-            <h3>プロジェクト設定（package.json）</h3>
-            <div class="code-block" data-lang="json">
-              <code
-                >{ "name": "todo-app", "private": true, "version": "0.0.0",
-                "type": "module", "scripts": { "dev": "vite", "build": "tsc &&
-                vite build", "preview": "vite preview" }, "dependencies": {
-                "react": "^18.2.0", "react-dom": "^18.2.0" }, "devDependencies":
-                { "@types/react": "^18.2.43", "@types/react-dom": "^18.2.17",
-                "@vitejs/plugin-react": "^4.2.1", "typescript": "^5.2.2",
-                "vite": "^5.0.8" } }</code
-              >
-            </div>
-
-            <h3>TypeScript設定（tsconfig.json）</h3>
-            <div class="code-block" data-lang="json">
-              <code
-                >{ "compilerOptions": { "target": "ES2020",
-                "useDefineForClassFields": true, "lib": ["ES2020", "DOM",
-                "DOM.Iterable"], "module": "ESNext", "skipLibCheck": true,
-                "moduleResolution": "bundler", "allowImportingTsExtensions":
-                true, "resolveJsonModule": true, "isolatedModules": true,
-                "noEmit": true, "jsx": "react-jsx", "strict": true,
-                "noUnusedLocals": true, "noUnusedParameters": true,
-                "noFallthroughCasesInSwitch": true }, "include": ["src"],
-                "references": [{ "path": "./tsconfig.node.json" }] }</code
-              >
-            </div>
-
             <h3>型定義（src/types/todo.ts）</h3>
             <div class="code-block" data-lang="typescript">
-              <code
-                >export interface Todo { id: string; text: string; completed:
-                boolean; createdAt: Date; }</code
-              >
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+              <code>export interface Todo {
+  id: string;
+  text: string;
+  completed: boolean;
+  createdAt: Date;
+}</code>
             </div>
 
             <h3>カスタムフック（src/hooks/useTodos.ts）</h3>
             <div class="code-block" data-lang="typescript">
-              <code
-                >import { useState, useEffect } from 'react'; import { Todo }
-                from '../types/todo'; export const useTodos = () => { const
-                [todos, setTodos] = useState&lt;Todo[]&gt;(() => { const saved =
-                localStorage.getItem('todos'); if (saved) { const parsed =
-                JSON.parse(saved); return parsed.map((todo: any) => ({ ...todo,
-                createdAt: new Date(todo.createdAt) // Date型に変換 })); }
-                return []; }); useEffect(() => { localStorage.setItem('todos',
-                JSON.stringify(todos)); }, [todos]); const addTodo = (text:
-                string) => { const newTodo: Todo = { id: Date.now().toString(),
-                text, completed: false, createdAt: new Date() };
-                setTodos([...todos, newTodo]); }; const toggleTodo = (id:
-                string) => { setTodos(todos.map(todo => todo.id === id ? {
-                ...todo, completed: !todo.completed } : todo )); }; const
-                deleteTodo = (id: string) => { setTodos(todos.filter(todo =>
-                todo.id !== id)); }; return { todos, addTodo, toggleTodo,
-                deleteTodo }; };</code
-              >
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+                            <code>import { useState, useEffect } from 'react';
+import { Todo } from '../types/todo';
+
+export const useTodos = () =&gt; {
+  const [todos, setTodos] = useState&lt;Todo[]&gt;(() =&gt; {
+    const saved = localStorage.getItem('todos');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() =&gt; {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  const addTodo = (text: string) =&gt; {
+    const newTodo: Todo = {
+      id: Date.now().toString(),
+      text,
+      completed: false,
+      createdAt: new Date()
+    };
+    setTodos([...todos, newTodo]);
+  };
+
+  const toggleTodo = (id: string) =&gt; {
+    setTodos(todos.map(todo =&gt;
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+  };
+
+  const deleteTodo = (id: string) =&gt; {
+    setTodos(todos.filter(todo =&gt; todo.id !== id));
+  };
+
+  return { todos, addTodo, toggleTodo, deleteTodo };
+};</code>
             </div>
 
             <h3>メインコンポーネント（src/App.tsx）</h3>
             <div class="code-block" data-lang="typescript">
-              <code
-                >import { useState } from 'react'; import { useTodos } from
-                './hooks/useTodos'; import './App.css'; function App() { const
-                [inputValue, setInputValue] = useState(''); const { todos,
-                addTodo, toggleTodo, deleteTodo } = useTodos(); const
-                handleSubmit = (e: React.FormEvent) => { e.preventDefault(); if
-                (inputValue.trim()) { addTodo(inputValue.trim());
-                setInputValue(''); } }; return ( &lt;div className="app"&gt;
-                &lt;h1&gt;📝 TODOアプリ&lt;/h1&gt; &lt;form
-                onSubmit={handleSubmit} className="todo-form"&gt; &lt;input
-                type="text" value={inputValue} onChange={(e) =>
-                setInputValue(e.target.value)}
-                placeholder="新しいタスクを入力..." className="todo-input" /&gt;
-                &lt;button type="submit"
-                className="add-btn"&gt;追加&lt;/button&gt; &lt;/form&gt; &lt;ul
-                className="todo-list"&gt; {todos.map(todo => ( &lt;li
-                key={todo.id} className={todo.completed ? 'completed' : ''}&gt;
-                &lt;input type="checkbox" checked={todo.completed} onChange={()
-                => toggleTodo(todo.id)} /&gt;
-                &lt;span&gt;{todo.text}&lt;/span&gt; &lt;button onClick={() =>
-                deleteTodo(todo.id)}&gt;🗑️&lt;/button&gt; &lt;/li&gt; ))}
-                &lt;/ul&gt; &lt;p className="todo-count"&gt; 残りタスク:
-                {todos.filter(t => !t.completed).length}件 &lt;/p&gt;
-                &lt;/div&gt; ); } export default App;</code
-              >
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+                            <code>import { useState } from 'react';
+import { useTodos } from './hooks/useTodos';
+import './App.css';
+
+function App() {
+  const [inputValue, setInputValue] = useState('');
+  const { todos, addTodo, toggleTodo, deleteTodo } = useTodos();
+
+  const handleSubmit = (e: React.FormEvent) =&gt; {
+    e.preventDefault();
+    if (inputValue.trim()) {
+      addTodo(inputValue.trim());
+      setInputValue('');
+    }
+  };
+
+  return (
+    &lt;div className="app"&gt;
+      &lt;h1&gt;📝 TODOアプリ&lt;/h1&gt;
+      &lt;form onSubmit={handleSubmit} className="todo-form"&gt;
+        &lt;input
+          type="text"
+          value={inputValue}
+          onChange={(e) =&gt; setInputValue(e.target.value)}
+          placeholder="新しいタスクを入力..."
+          className="todo-input"
+        /&gt;
+        &lt;button type="submit" className="add-btn"&gt;追加&lt;/button&gt;
+      &lt;/form&gt;
+      &lt;ul className="todo-list"&gt;
+        {todos.map(todo =&gt; (
+          &lt;li key={todo.id} className={todo.completed ? 'completed' : ''}&gt;
+            &lt;input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() =&gt; toggleTodo(todo.id)}
+            /&gt;
+            &lt;span&gt;{todo.text}&lt;/span&gt;
+            &lt;button onClick={() =&gt; deleteTodo(todo.id)}&gt;🗑️&lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+      &lt;p className="todo-count"&gt;
+        残りタスク: {todos.filter(t =&gt; !t.completed).length}件
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code>
             </div>
 
             <h3>スタイル（src/App.css）</h3>
             <div class="code-block" data-lang="css">
-              <code
-                >.app { max-width: 500px; margin: 40px auto; padding: 20px;
-                font-family: sans-serif; } h1 { text-align: center; color: #333;
-                } .todo-form { display: flex; gap: 10px; margin-bottom: 20px; }
-                .todo-input { flex: 1; padding: 12px; border: 2px solid #ddd;
-                border-radius: 8px; font-size: 16px; } .todo-input:focus {
-                outline: none; border-color: #3b82f6; } .add-btn { padding: 12px
-                24px; background: #3b82f6; color: white; border: none;
-                border-radius: 8px; cursor: pointer; font-size: 16px; }
-                .add-btn:hover { background: #2563eb; } .todo-list { list-style:
-                none; padding: 0; } .todo-list li { display: flex; align-items:
-                center; gap: 12px; padding: 12px; background: #f8fafc;
-                border-radius: 8px; margin-bottom: 8px; } .todo-list
-                li.completed span { text-decoration: line-through; color:
-                #9ca3af; } .todo-list li span { flex: 1; } .todo-list li button
-                { background: none; border: none; cursor: pointer; font-size:
-                18px; } .todo-count { text-align: center; color: #6b7280;
-                margin-top: 20px; }</code
-              >
+              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+                            <code>.app {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.todo-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.todo-input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.todo-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.add-btn {
+  padding: 12px 24px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-btn:hover {
+  background: #2563eb;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.todo-list li.completed span {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.todo-list li span {
+  flex: 1;
+}
+
+.todo-list li button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.todo-count {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 20px;
+}</code>
             </div>
           </div>
         </div>
@@ -1266,16 +1140,7 @@ tasks.mdの最初のタスクから順番に実行してください。
 
       <!-- Step 5 -->
       <section class="section" id="step5">
-        <div class="step-header">Step 5: Hooksで開発を自動化</div>
-
-        <div class="alert alert-info">
-          <span class="alert-icon">🔗</span>
-          <div>
-            <strong>Hooksとは：</strong
-            >Kiroの重要機能の一つで、ファイル変更などのイベントに応じて自動でタスクを実行できます。
-            開発効率を大幅に向上させる機能なので、ぜひ体験してみましょう。
-          </div>
-        </div>
+        <div class="step-header">Step 5: Hooksを設定（オプション）</div>
 
         <div class="step-item">
           <div class="step-number">10</div>
@@ -1360,39 +1225,11 @@ tasks.mdの最初のタスクから順番に実行してください。
         <div class="step-item">
           <div class="step-number">12</div>
           <div class="step-content">
-            <h4>npmの確認とインストール</h4>
-            <p>まず、npmがインストールされているか確認します：</p>
-
-            <div class="code-block" data-lang="bash">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>$ npm -v</code>
-            </div>
-
-            <div class="alert alert-warning">
-              <span class="alert-icon">⚠️</span>
-              <div>
-                <strong>npmが見つからない場合：</strong><br />
-                以下のコマンドでnpmをインストールしてください：
-              </div>
-            </div>
-
-            <div class="code-block" data-lang="bash">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code
-                ># Ubuntu/Debian系の場合 $ sudo apt update $ sudo apt install
-                npm # macOSの場合（Homebrewを使用） $ brew install node #
-                Windows（Chocolateyを使用） $ choco install nodejs</code
-              >
-            </div>
-
             <h4>依存関係をインストール</h4>
-            <p>
-              npmが利用可能になったら、プロジェクトの依存関係をインストールします：
-            </p>
 
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>$ npm install</code>
+              <code>npm install</code>
             </div>
           </div>
         </div>
@@ -1404,11 +1241,15 @@ tasks.mdの最初のタスクから順番に実行してください。
 
             <div class="code-block" data-lang="bash">
               <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>$ npm run dev</code>
+              <code>npm run dev</code>
             </div>
 
             <p>
-              ブラウザでターミナルに表示されるローカルサーバーのURLを開いて動作確認
+              ブラウザで
+              <a href="http://localhost:5173" target="_blank"
+                ><code>http://localhost:5173</code></a
+              >
+              を開いて動作確認
             </p>
           </div>
         </div>
@@ -1416,8 +1257,7 @@ tasks.mdの最初のタスクから順番に実行してください。
         <div class="step-item">
           <div class="step-number">14</div>
           <div class="step-content">
-            <h4>アプリケーション機能をテスト</h4>
-            <p>TODOアプリの基本機能が正しく動作することを確認します：</p>
+            <h4>機能をテスト</h4>
 
             <ul class="checklist" style="margin-top: 12px">
               <li>
@@ -1440,50 +1280,6 @@ tasks.mdの最初のタスクから順番に実行してください。
           </div>
         </div>
 
-        <div class="step-item">
-          <div class="step-number">15</div>
-          <div class="step-content">
-            <h4>Agent Hooksの動作確認</h4>
-            <p>設定したAgent Hooksが正しく動作するかテストします：</p>
-
-            <div class="alert alert-tip">
-              <span class="alert-icon">�</span>
-              <div>
-                <strong>Hooksテスト手順：</strong><br />
-                1. <code>src/components/</code> フォルダ内の任意の
-                <code>.tsx</code> ファイルを開く<br />
-                2. ファイルにコメントを追加（例：<code
-                  >// Hooksテスト用コメント</code
-                >）<br />
-                3. ファイルを保存（Ctrl+S / Cmd+S）<br />
-                4. Kiroが自動でHookを実行するのを確認
-              </div>
-            </div>
-
-            <div class="code-block" data-lang="typescript">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code
-                >// 例：src/App.tsx にコメントを追加 import { useState } from
-                'react'; import { useTodos } from './hooks/useTodos'; import
-                './App.css'; // Hooksテスト用コメント -
-                この行を追加してファイルを保存 function App() { // ...
-                既存のコード }</code
-              >
-            </div>
-
-            <div class="alert alert-info">
-              <span class="alert-icon">📋</span>
-              <div>
-                <strong>期待される動作：</strong><br />
-                • ファイル保存後、Kiroが自動でタスクを実行<br />
-                • テストファイルの作成・更新が行われる<br />
-                • 実行結果がチャットに表示される<br />
-                • エラーがある場合は修正提案が表示される
-              </div>
-            </div>
-          </div>
-        </div>
-
         <h3>📁 最終的なディレクトリ構成</h3>
 
         <div class="dir-tree">
@@ -1491,25 +1287,25 @@ tasks.mdの最初のタスクから順番に実行してください。
 ├── <span class="folder">.kiro/</span>
 │   ├── <span class="folder">specs/</span>
 │   │   └── <span class="folder">todo-app/</span>
-│   │       ├── <span class="file">requirements.md</span> <span class="comment"># 要件定義</span>
-│   │       ├── <span class="file">design.md</span> <span class="comment"># 技術設計</span>
-│   │       └── <span class="file">tasks.md</span> <span class="comment"># タスクリスト</span>
+│   │       ├── <span class="file">requirements.md</span>  <span class="comment"># 要件定義</span>
+│   │       ├── <span class="file">design.md</span>        <span class="comment"># 技術設計</span>
+│   │       └── <span class="file">tasks.md</span>         <span class="comment"># タスクリスト</span>
 │   ├── <span class="folder">steering/</span>
-│   │   └── <span class="file">product.md</span> <span class="comment"># プロジェクトルール</span>
+│   │   └── <span class="file">product.md</span>       <span class="comment"># プロジェクトルール</span>
 │   └── <span class="folder">hooks/</span>
-│       └── <span class="file">auto-test.md</span> <span class="comment"># 自動テストHook</span>
+│       └── <span class="file">auto-test.md</span>     <span class="comment"># 自動テストHook</span>
 ├── <span class="folder">src/</span>
 │   ├── <span class="folder">components/</span>
-│   │   ├── <span class="file">TodoItem.tsx</span> <span class="comment"># TODOアイテム</span>
-│   │   ├── <span class="file">TodoList.tsx</span> <span class="comment"># TODOリスト</span>
-│   │   └── <span class="file">TodoForm.tsx</span> <span class="comment"># 入力フォーム</span>
+│   │   ├── <span class="file">TodoItem.tsx</span>     <span class="comment"># TODOアイテム</span>
+│   │   ├── <span class="file">TodoList.tsx</span>     <span class="comment"># TODOリスト</span>
+│   │   └── <span class="file">TodoForm.tsx</span>     <span class="comment"># 入力フォーム</span>
 │   ├── <span class="folder">hooks/</span>
-│   │   └── <span class="file">useTodos.ts</span> <span class="comment"># TODO管理Hook</span>
+│   │   └── <span class="file">useTodos.ts</span>      <span class="comment"># TODO管理Hook</span>
 │   ├── <span class="folder">types/</span>
-│   │   └── <span class="file">todo.ts</span> <span class="comment"># 型定義</span>
-│   ├── <span class="file">App.tsx</span> <span class="comment"># メインコンポーネント</span>
-│   ├── <span class="file">App.css</span> <span class="comment"># スタイル</span>
-│   └── <span class="file">main.tsx</span> <span class="comment"># エントリーポイント</span>
+│   │   └── <span class="file">todo.ts</span>          <span class="comment"># 型定義</span>
+│   ├── <span class="file">App.tsx</span>              <span class="comment"># メインコンポーネント</span>
+│   ├── <span class="file">App.css</span>              <span class="comment"># スタイル</span>
+│   └── <span class="file">main.tsx</span>             <span class="comment"># エントリーポイント</span>
 ├── <span class="file">index.html</span>
 ├── <span class="file">package.json</span>
 ├── <span class="file">tsconfig.json</span>
@@ -1526,7 +1322,7 @@ tasks.mdの最初のタスクから順番に実行してください。
         <div class="progress-container">
           <div class="progress-bar" id="progressBar" style="width: 0%"></div>
         </div>
-        <p class="progress-text" id="progressText">0 / 11 完了</p>
+        <p class="progress-text" id="progressText">0 / 10 完了</p>
 
         <ul class="checklist" id="mainChecklist">
           <li>
@@ -1535,39 +1331,31 @@ tasks.mdの最初のタスクから順番に実行してください。
           </li>
           <li>
             <input type="checkbox" id="check2" onchange="updateProgress()" />
-            <label for="check2"
-              >Specsで仕様を作成できた（3つのファイルが生成された）</label
-            >
+            <label for="check2">Specsで仕様を作成できた</label>
           </li>
           <li>
             <input type="checkbox" id="check3" onchange="updateProgress()" />
-            <label for="check3"
-              >requirements.md の内容を確認してApproveした</label
-            >
+            <label for="check3">requirements.md が生成された</label>
           </li>
           <li>
             <input type="checkbox" id="check4" onchange="updateProgress()" />
-            <label for="check4">design.md の内容を確認してApproveした</label>
+            <label for="check4">design.md が生成された</label>
           </li>
           <li>
             <input type="checkbox" id="check5" onchange="updateProgress()" />
-            <label for="check5">tasks.md の内容を確認してApproveした</label>
+            <label for="check5">tasks.md が生成された</label>
           </li>
           <li>
             <input type="checkbox" id="check6" onchange="updateProgress()" />
-            <label for="check6">Steeringを設定できた（product.mdを作成）</label>
+            <label for="check6">Steeringを設定できた</label>
           </li>
           <li>
             <input type="checkbox" id="check7" onchange="updateProgress()" />
-            <label for="check7"
-              >タスクに従って実装が完了した（全ファイルが生成された）</label
-            >
+            <label for="check7">タスクに従って実装が完了した</label>
           </li>
           <li>
             <input type="checkbox" id="check8" onchange="updateProgress()" />
-            <label for="check8"
-              >TODOアプリが動作する（npm run devで起動確認）</label
-            >
+            <label for="check8">TODOアプリが動作する</label>
           </li>
           <li>
             <input type="checkbox" id="check9" onchange="updateProgress()" />
@@ -1575,14 +1363,7 @@ tasks.mdの最初のタスクから順番に実行してください。
           </li>
           <li>
             <input type="checkbox" id="check10" onchange="updateProgress()" />
-            <label for="check10">Hooksを設定して自動化を体験した</label>
-          </li>
-          <li>
-            <input type="checkbox" id="check11" onchange="updateProgress()" />
-            <label for="check11"
-              >適当な src/components/*.tsx を開いてコメントを追加し、Agent
-              Hooksを発火させた</label
-            >
+            <label for="check10">Hooksの仕組みを理解した</label>
           </li>
         </ul>
       </section>
@@ -1592,87 +1373,14 @@ tasks.mdの最初のタスクから順番に実行してください。
         <h2>🔧 トラブルシューティング</h2>
 
         <div class="trouble-item">
-          <h5>❌ npmコマンドが見つからない</h5>
-          <p>「npm: command not found」エラーが表示される場合があります。</p>
-          <div class="solution">
-            <strong>解決方法：</strong>
-            <div class="code-block" data-lang="bash">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code
-                ># Ubuntu/Debian系 $ sudo apt update $ sudo apt install npm #
-                CentOS/RHEL系 $ sudo yum install npm # または $ sudo dnf install
-                npm # macOS (Homebrew) $ brew install node # Windows
-                (Chocolatey) $ choco install nodejs</code
-              >
-            </div>
-            <p style="margin-top: 12px">
-              インストール後、ターミナルを再起動してから
-              <code>npm -v</code> で確認してください。
-            </p>
-          </div>
-        </div>
-
-        <div class="trouble-item">
-          <h5>❌ Agent Hooksが動作しない</h5>
-          <p>ファイルを保存してもHooksが実行されない場合があります。</p>
-          <div class="solution">
-            <strong>解決方法：</strong>
-            <ul style="margin-left: 20px; margin-top: 8px">
-              <li>
-                Hookの設定でFile pathが正しいか確認（<code>src/**/*.tsx</code>）
-              </li>
-              <li>対象ファイルが実際に存在するか確認</li>
-              <li>
-                Hookが有効になっているか確認（左サイドバーのAGENT HOOKSで確認）
-              </li>
-              <li>Kiro IDEを再起動してプロジェクトを再度開く</li>
-              <li>
-                手動でChatから「ファイルが変更されました。テストを実行してください」と依頼
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="trouble-item">
-          <h5>❌ AWS Builder IDの認証エラー</h5>
-          <p>サインインに失敗する、または認証が切れる場合があります。</p>
-          <div class="solution">
-            <strong>解決方法：</strong>
-            <ul style="margin-left: 20px; margin-top: 8px">
-              <li>Kiro IDEを再起動してサインインし直す</li>
-              <li>ブラウザでAWS Builder IDにログインできるか確認</li>
-              <li>ネットワーク接続とファイアウォール設定を確認</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="trouble-item">
           <h5>❌ Specsが生成されない</h5>
           <p>プロンプトが短すぎるか、具体性が不足している可能性があります。</p>
           <div class="solution">
             <strong>解決方法：</strong>
             <ul style="margin-left: 20px; margin-top: 8px">
-              <li>
-                より具体的な要件を記述する（機能、技術スタック、UI要件など）
-              </li>
-              <li>技術スタックを明示する（React + TypeScript + Vite）</li>
+              <li>より具体的な要件を記述する</li>
+              <li>技術スタックを明示する</li>
               <li>ネットワーク接続を確認する</li>
-              <li>プロンプトを200文字以上で記述する</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="trouble-item">
-          <h5>❌ タスク実行時のエラー</h5>
-          <p>
-            「Start task」をクリックしてもタスクが実行されない場合があります。
-          </p>
-          <div class="solution">
-            <strong>解決方法：</strong>
-            <ul style="margin-left: 20px; margin-top: 8px">
-              <li>Chatで手動でタスク内容を指示する</li>
-              <li>tasks.mdファイルが正しく生成されているか確認</li>
-              <li>Kiro IDEを再起動してプロジェクトを再度開く</li>
             </ul>
           </div>
         </div>
@@ -1682,9 +1390,9 @@ tasks.mdの最初のタスクから順番に実行してください。
           <p>依存関係のインストールが完了していない可能性があります。</p>
           <div class="solution">
             <strong>解決方法：</strong>
-            <div class="code-block" data-lang="bash">
-              <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-              <code>$ rm -rf node_modules $ npm install</code>
+            <div class="code-block" data-lang="bash" style="margin-top: 8px">
+              <code>rm -rf node_modules
+npm install</code>
             </div>
           </div>
         </div>
@@ -1745,13 +1453,6 @@ tasks.mdの最初のタスクから順番に実行してください。
 
         <div class="challenge-card">
           <h4>⭐ Level 1: 基本機能の拡張</h4>
-          <div class="alert alert-info" style="margin-bottom: 12px">
-            <span class="alert-icon">⏱️</span>
-            <div>
-              <strong>推定所要時間：</strong> 15〜30分<br />
-              <strong>必要な前提知識：</strong> React基本、JavaScript基本
-            </div>
-          </div>
           <ul>
             <li>タスクの編集機能を追加</li>
             <li>タスクの優先度（高・中・低）を設定できるようにする</li>
@@ -1760,23 +1461,12 @@ tasks.mdの最初のタスクから順番に実行してください。
 
           <div class="prompt-box" style="margin-top: 16px">
             <h5>📝 Chatに入力するプロンプト例</h5>
-            <pre>
-タスクをダブルクリックで編集できる機能を追加してください。
-編集モードでは入力フィールドが表示され、
-Enterキーで保存、Escapeキーでキャンセルできるようにしてください。</pre
-            >
+            <pre>タスクをダブルクリックで編集できる機能を追加してください</pre>
           </div>
         </div>
 
         <div class="challenge-card">
           <h4>⭐⭐ Level 2: フィルタリングとソート</h4>
-          <div class="alert alert-info" style="margin-bottom: 12px">
-            <span class="alert-icon">⏱️</span>
-            <div>
-              <strong>推定所要時間：</strong> 30〜45分<br />
-              <strong>必要な前提知識：</strong> React Hooks、配列操作、URL操作
-            </div>
-          </div>
           <ul>
             <li>「すべて」「未完了」「完了済み」のフィルタータブを追加</li>
             <li>作成日時でソートする機能</li>
@@ -1789,28 +1479,18 @@ Enterキーで保存、Escapeキーでキャンセルできるようにしてく
 フィルタリング機能を追加したい：
 - タブで「すべて」「未完了」「完了済み」を切り替え
 - 現在のフィルター状態をURLパラメータで管理
-- フィルター切り替え時のアニメーション
-- 検索ボックスでタスク名の部分一致検索</pre
+- フィルター切り替え時のアニメーション</pre
             >
           </div>
         </div>
 
         <div class="challenge-card">
           <h4>⭐⭐⭐ Level 3: 高度な機能</h4>
-          <div class="alert alert-info" style="margin-bottom: 12px">
-            <span class="alert-icon">⏱️</span>
-            <div>
-              <strong>推定所要時間：</strong> 60〜90分<br />
-              <strong>必要な前提知識：</strong>
-              ドラッグ&ドロップAPI、日付操作、CSS詳細、PWA基本
-            </div>
-          </div>
           <ul>
             <li>ドラッグ&ドロップで並び替え</li>
             <li>カテゴリー（タグ）機能の追加</li>
             <li>期限日の設定と通知</li>
             <li>ダークモードの実装</li>
-            <li>PWA対応（オフライン機能）</li>
           </ul>
 
           <div class="prompt-box" style="margin-top: 16px">
@@ -1823,12 +1503,7 @@ Enterキーで保存、Escapeキーでキャンセルできるようにしてく
 
 ## アニメーション
 - 200ms以下のトランジションを使用
-- prefers-reduced-motionを考慮
-
-## PWA要件
-- Service Workerでオフライン対応
-- マニフェストファイルの設定
-- インストール可能なアプリとして動作</pre
+- prefers-reduced-motionを考慮</pre
             >
           </div>
         </div>
@@ -1847,8 +1522,16 @@ Enterキーで保存、Escapeキーでキャンセルできるようにしてく
             <h5>📖 ドキュメント</h5>
             <p>kiro.dev/docs</p>
           </a>
+          <a
+            href="https://github.com/aws/kiro"
+            target="_blank"
+            class="link-card"
+          >
+            <h5>💻 GitHub</h5>
+            <p>github.com/aws/kiro</p>
+          </a>
           <a href="https://discord.gg/kiro" target="_blank" class="link-card">
-            <h5>� Discord</h5>
+            <h5>💬 Discord</h5>
             <p>コミュニティ</p>
           </a>
         </div>
@@ -1908,72 +1591,6 @@ Enterキーで保存、Escapeキーでキャンセルできるようにしてく
           </div>
         </div>
       </section>
-
-      <!-- 学習効果測定 -->
-      <section class="section" id="assessment">
-        <h2>📊 学習効果の確認</h2>
-
-        <p>ハンズオン完了後、以下の項目で理解度をチェックしてみましょう：</p>
-
-        <div class="challenge-card">
-          <h4>🎯 理解度チェック</h4>
-          <ul class="checklist" style="margin-top: 12px">
-            <li>
-              <input type="checkbox" id="understand1" />
-              <label for="understand1"
-                >Specsの3つのファイル（requirements.md、design.md、tasks.md）の役割を説明できる</label
-              >
-            </li>
-            <li>
-              <input type="checkbox" id="understand2" />
-              <label for="understand2"
-                >Steeringファイルでプロジェクトルールを設定する目的を理解している</label
-              >
-            </li>
-            <li>
-              <input type="checkbox" id="understand3" />
-              <label for="understand3"
-                >Hooksを使った自動化の仕組みを説明できる</label
-              >
-            </li>
-            <li>
-              <input type="checkbox" id="understand4" />
-              <label for="understand4"
-                >Chatでタスクを一括実行する方法を理解している</label
-              >
-            </li>
-            <li>
-              <input type="checkbox" id="understand5" />
-              <label for="understand5"
-                >EARS形式や正確性プロパティの概念を理解している</label
-              >
-            </li>
-          </ul>
-        </div>
-
-        <div class="alert alert-tip">
-          <span class="alert-icon">💡</span>
-          <div>
-            <strong>できるようになったこと：</strong><br />
-            ✅ 自然言語から仕様を自動生成<br />
-            ✅ AIにプロジェクト固有のルールを伝達<br />
-            ✅ 段階的なタスク実行による実装<br />
-            ✅ ファイル変更時の自動処理設定<br />
-            ✅ 仕様駆動開発の基本ワークフロー
-          </div>
-        </div>
-
-        <div class="alert alert-warning">
-          <span class="alert-icon">🚀</span>
-          <div>
-            <strong>次のステップ：</strong><br />
-            • より複雑なアプリケーション（認証機能付きなど）に挑戦<br />
-            • チームでのSteering共有とベストプラクティス構築<br />
-            • CI/CDパイプラインへのKiro統合<br />
-            • プロパティベーステストの深い理解と活用
-          </div>
-        </div>
-      </section>
     </main>
 
     <!-- フッター -->
@@ -1998,14 +1615,8 @@ Enterキーで保存、Escapeキーでキャンセルできるようにしてく
         const codeBlock = button.parentElement;
         const code = codeBlock.querySelector("code").innerText;
 
-        // bashコマンドの場合は$プロンプトを除去
-        let textToCopy = code;
-        if (codeBlock.getAttribute("data-lang") === "bash") {
-          textToCopy = code.replace(/^\$ /gm, "");
-        }
-
         navigator.clipboard
-          .writeText(textToCopy)
+          .writeText(code)
           .then(() => {
             const originalText = button.innerText;
             button.innerText = "コピー完了!";
@@ -2013,7 +1624,7 @@ Enterキーで保存、Escapeキーでキャンセルできるようにしてく
 
             setTimeout(() => {
               button.innerText = originalText;
-              button.style.background = "#3b82f6";
+              button.style.background = "#475569";
             }, 2000);
           })
           .catch((err) => {
@@ -2343,7 +1954,7 @@ Enterキーで保存、Escapeキーでキャンセルできるようにしてく
 
       // 所要時間の表示
       const timeEstimate = document.createElement("div");
-      timeEstimate.innerHTML = "⏱️ 推定所要時間: <strong>30〜45分</strong> ";
+      timeEstimate.innerHTML = "⏱️ 推定所要時間: <strong>30〜45分</strong>";
       timeEstimate.style.cssText = `
       background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
       padding: 12px 20px;
